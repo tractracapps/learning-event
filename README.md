@@ -105,25 +105,55 @@ Password: test1234
 
 The application supports the following environment variables:
 
-Variable         Description                               Default           
+| Variable             | Description                                       | Default            |
+|----------------------|---------------------------------------------------|--------------------|
+| `MONGODB_URI`        | MongoDB connection string (**required**)          | none               |
+| `STAFF_PASSWORD`     | Shared password used by event staff               | insecure placeholder |
+| `JWT_SECRET`         | Secret used to sign authentication tokens         | insecure placeholder |
+| `PAYSTACK_SECRET_KEY`| Paystack key for bank account resolution          | empty (disabled)   |
+| `PORT`               | Port on which the server runs                     | `3000`             |
 
- `STAFF_PASSWORD`  Shared password used by event staff        `changeme`        
- `JWT_SECRET`      Secret used to sign authentication tokens  Placeholder value 
- `PORT`            Port on which the server runs              `3000`           
- `DB_PATH`         Location of the SQLite database            `./data.db`       
-
-### Production Configuration
-
-Before deploying, make sure to set secure values for:
-
-```bash
-STAFF_PASSWORD=your-secure-password
-JWT_SECRET=your-long-random-secret
-PORT=3000
-DB_PATH=./data.db
-```
+See `.env.example` for a template.
 
 **Do not deploy the application using the default `STAFF_PASSWORD` or placeholder `JWT_SECRET`.**
+
+---
+
+## Health Check
+
+`GET /health` returns `200 {"status":"ok"}` when the server is up and connected to
+MongoDB, or `503 {"status":"degraded"}` otherwise. It requires no authentication and
+is what the Docker `HEALTHCHECK` and any reverse proxy / uptime monitor should poll.
+
+---
+
+## Deploying with Docker (Contabo VPS)
+
+The image is a two-stage `node:20-alpine` build with no native dependencies, so a
+cold build on a VPS takes well under a minute and rebuilds after code changes only
+re-copy the source (the `npm ci` layer is cached on `package*.json`).
+
+```bash
+# one-time on the VPS
+git clone <repo-url> learning-event && cd learning-event
+cp .env.example .env && nano .env      # set MONGODB_URI, JWT_SECRET, STAFF_PASSWORD
+
+# build + start (detached, auto-restarts on reboot)
+docker compose up -d --build
+
+# verify
+docker compose ps                       # STATUS should show "healthy" after ~20s
+curl -s http://localhost:3000/health
+```
+
+Updating to a new version:
+
+```bash
+git pull && docker compose up -d --build
+```
+
+Put Nginx or Caddy in front of port 3000 for TLS. The container runs as the
+unprivileged `node` user and logs are capped at 3 x 10 MB files.
 
 ---
 

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const Attendee = require('./models/attendee');
+const Attendee = require('./models/Attendee');
 
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET =process.env.JWT_SECRET || 'change-this-secret-before-deploying';
@@ -16,6 +16,22 @@ const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
+
+
+// =====================================================
+// HEALTH CHECK (used by Docker / load balancer)
+// =====================================================
+
+app.get('/health', (req, res) => {
+  const dbReady = mongoose.connection.readyState === 1;
+
+  res.status(dbReady ? 200 : 503).json({
+    status: dbReady ? 'ok' : 'degraded',
+    db: dbReady ? 'connected' : 'disconnected',
+    uptime: Math.round(process.uptime()),
+    timestamp: new Date().toISOString()
+  });
+});
 
 
 // =====================================================
