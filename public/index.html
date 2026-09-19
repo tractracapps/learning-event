@@ -871,20 +871,21 @@
       }
 
       @media (max-width: 600px) {
-        html,
+        html {
+          width: 100%;
+          min-height: 100%;
+          overflow-x: hidden;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
         body {
           width: 100%;
-          max-width: 100%;
+          min-width: 0;
+          min-height: 100%;
+          margin: 0;
           overflow-x: hidden;
-        }
-
-        html {
-          min-height: 100%;
-        }
-
-        body {
-          min-height: 100%;
-          overflow-y: auto;
+          overflow-y: visible;
           -webkit-overflow-scrolling: touch;
         }
  
@@ -1080,23 +1081,42 @@
      The details can scroll horizontally.
   */
 
+        .attendee-info {
+          min-width: 0;
+          overflow: hidden;
+        }
+
         .attendee-details {
           display: grid;
-          grid-template-columns: 105px 190px 90px 150px 105px;
+          grid-template-columns: repeat(5, 130px);
           gap: 14px;
           width: max-content;
-          min-width: 100%;
+          min-width: max-content;
           margin-top: 12px;
           padding-top: 10px;
           overflow: visible;
         }
 
         .attendee-details-scroll {
+          display: block;
           width: 100%;
+          max-width: 100%;
+          min-width: 0;
           overflow-x: auto;
           overflow-y: hidden;
           -webkit-overflow-scrolling: touch;
+          overscroll-behavior-x: contain;
+          overscroll-behavior-y: auto;
+          touch-action: pan-x pan-y;
           scrollbar-width: thin;
+          position: relative;
+          z-index: 1;
+        }
+
+        .badge {
+          position: relative;
+          z-index: 3;
+          flex-shrink: 0;
         }
 
         .attendee-details-scroll::-webkit-scrollbar {
@@ -1132,6 +1152,8 @@
           justify-content: center;
           overflow: hidden;
           box-sizing: border-box;
+          touch-action: auto;
+          overscroll-behavior: contain;
         }
 
         .modal,
@@ -1146,7 +1168,9 @@
           overflow-y: auto;
           overflow-x: hidden;
           -webkit-overflow-scrolling: touch;
-          overscroll-behavior: contain;
+          overscroll-behavior-y: contain;
+          overscroll-behavior-x: none;
+          touch-action: pan-y;
           box-sizing: border-box;
         }
 
