@@ -670,6 +670,7 @@
         color: var(--ink-soft);
       }
 
+/* BANK ACCOUNT CSS - COMMENTED OUT TEMPORARILY */
       .bank-search-wrap {
         position: relative;
       }
@@ -774,6 +775,7 @@
       .bank-status.error {
         color: var(--bad);
       }
+/* END BANK ACCOUNT CSS */
 
       .file-drop {
         border: 2px dashed var(--border);
@@ -1194,6 +1196,7 @@
           min-height: 100px;
         }
 
+/* MOBILE BANK ACCOUNT CSS - COMMENTED OUT TEMPORARILY */
         .bank-dropdown {
           max-height: 200px;
           overflow-y: auto;
@@ -1218,6 +1221,7 @@
         .bank-search-wrap label::after {
           display: none;
         }
+/* END MOBILE BANK ACCOUNT CSS */
 
         .modal-actions {
           display: flex;
@@ -1402,8 +1406,8 @@
           "lga",
           "designation",
           "address",
-          "bankName",
-          "accountNumber",
+          // "bankName",
+          // "accountNumber",
         ];
         const REQUIRED_LABELS = {
           name: "Full name",
@@ -1414,8 +1418,8 @@
           lga: "LGA",
           designation: "Designation",
           address: "Address",
-          bankName: "Bank",
-          accountNumber: "Account number",
+          // bankName: "Bank",
+          // accountNumber: "Account number",
         };
 
         function isProfileComplete(a) {
@@ -2282,6 +2286,7 @@
           ],
         };
 
+/* NIGERIAN BANK LIST - COMMENTED OUT TEMPORARILY */
         const NIGERIAN_BANKS = [
           { name: "Access Bank", code: "044" },
           { name: "Access Bank (Diamond)", code: "063" },
@@ -2350,6 +2355,7 @@
           { name: "Wema Bank", code: "035" },
           { name: "Zenith Bank", code: "057" },
         ];
+/* END NIGERIAN BANK LIST */
         let state = {
           loading: true,
           meta: {
@@ -2371,13 +2377,13 @@
           importSummary: null,
           signAttendeeId: null,
           signError: "",
-          bankSearchText: "",
-          bankDropdownOpen: false,
-          selectedBankCode: "",
-          selectedBankName: "",
-          accountNumberValue: "",
-          accountNameValue: "",
-          bankStatus: "",
+          // bankSearchText: "",
+          // bankDropdownOpen: false,
+          // selectedBankCode: "",
+          // selectedBankName: "",
+          // accountNumberValue: "",
+          // accountNameValue: "",
+          // bankStatus: "",
           formDraft: null,
           pendingCheckInId: null,
         };
@@ -2456,6 +2462,7 @@
           }
         }
 
+/* BANK FORM STATE RESET - COMMENTED OUT TEMPORARILY */
         function resetBankFormState(editing) {
           state.bankSearchText = editing ? editing.bankName || "" : "";
           state.bankDropdownOpen = false;
@@ -2465,6 +2472,7 @@
           state.accountNameValue = editing ? editing.accountName || "" : "";
           state.bankStatus = editing && editing.accountName ? "verified" : "";
         }
+/* END BANK FORM STATE RESET */
         async function refreshAll() {
           await Promise.all([loadMeta(), loadAttendees()]);
           render();
@@ -2718,6 +2726,7 @@
           ];
           const ageOptions = ["18-35", "36 and above"];
 
+/* BANK FILTERING / BANK STATUS DISPLAY - COMMENTED OUT TEMPORARILY */
           const filteredBanks = state.bankSearchText
             ? NIGERIAN_BANKS.filter((b) =>
                 b.name
@@ -2733,6 +2742,7 @@
             bankStatusHtml = `<div class="bank-status verified">✓ ${esc(state.accountNameValue)}</div>`;
           else if (state.bankStatus === "error")
             bankStatusHtml = `<div class="bank-status error">${esc(state.accountNameValue || "Could not verify this account.")}</div>`;
+/* END BANK FILTERING / BANK STATUS DISPLAY */
 
           return `
         <div class="modal-overlay" id="modal-overlay">
@@ -2762,29 +2772,7 @@
             <div class="field field-full"><label>Address</label><input id="f-address" value="${esc(draftVal("f-address", editing ? editing.address : ""))}" placeholder="e.g. 12 Herbert Macaulay Way, Abuja" /></div>
             </div>
 
-            <div class="form-section-title">Bank Details</div>
-            <div class="bank-details-card">
-              <div class="field bank-search-wrap">
-                <label>Bank</label>
-                <input id="f-bank-search" autocomplete="off" value="${esc(state.bankSearchText)}" placeholder="Search or select bank" />
-                ${
-                  state.bankDropdownOpen
-                    ? `
-                  <div class="bank-dropdown" id="bank-dropdown">
-                    ${filteredBanks.length ? filteredBanks.map((b) => `<div class="bank-option" data-bank-code="${esc(b.code)}" data-bank-name="${esc(b.name)}">${esc(b.name)}</div>`).join("") : `<div class="bank-option" style="color:var(--muted);cursor:default;">No banks found</div>`}
-                  </div>
-                `
-                    : ""
-                }
-              </div>
-              <div class="bank-account-row">
-                <div class="field"><label>Account Number</label><input id="f-account-number" maxlength="10" inputmode="numeric" value="${esc(state.accountNumberValue)}" placeholder="10-digit NUBAN" /></div>
-                <div class="field"><label>Account Name</label>
-                  <input id="f-account-name" value="${esc(state.accountNameValue)}" placeholder="Auto-filled after verification" readonly />
-                </div>
-              </div>
-              ${bankStatusHtml ? `<div class="field">${bankStatusHtml}</div>` : ""}
-            </div>
+            <!-- Bank/account feature commented out intentionally. -->
 
             <div class="modal-actions">
               <button class="btn" id="modal-cancel">Cancel</button>
@@ -2950,6 +2938,7 @@
             });
         }
 
+/* PAYSTACK BANK ACCOUNT RESOLUTION FUNCTION - COMMENTED OUT TEMPORARILY */
         async function resolveBankAccount() {
           if (state.accountNumberValue.length !== 10 || !state.selectedBankCode)
             return;
@@ -2974,6 +2963,7 @@
             render();
           } catch (e) {
             state.bankStatus = "error";
+/* END PAYSTACK BANK ACCOUNT RESOLUTION FUNCTION */
             state.accountNameValue = "Network error while verifying.";
             render();
           }
@@ -3025,7 +3015,7 @@
             ],
             disabilityType: ["disability", "disabilitytype"],
             ageRange: ["age", "agerange"],
-            accountNumber: ["account", "accountnumber", "accountno"],
+            // accountNumber: ["account", "accountnumber", "accountno"],
             state: ["state"],
             lga: ["lga", "localgovernmentarea", "localgovernment", "location"],
             designation: ["designation", "role", "jobtitle", "title"],
@@ -3066,7 +3056,7 @@
               organization: 4,
               disabilityType: 5,
               ageRange: 6,
-              accountNumber: 7,
+              // accountNumber: 7,
             };
           }
 
@@ -3096,7 +3086,7 @@
 
             const ageRange = getValue(parts, "ageRange");
 
-            const accountNumber = getValue(parts, "accountNumber");
+            // const accountNumber = getValue(parts, "accountNumber");
 
             // If Excel removed the leading 0 from a
             // Nigerian 11-digit phone number
@@ -3121,7 +3111,7 @@
               gender,
               disabilityType,
               ageRange,
-              accountNumber,
+              // accountNumber,
               state,
               lga,
               designation,
@@ -3239,12 +3229,12 @@
                   ],
                   disabilityType: ["disability", "disabilitytype"],
                   ageRange: ["age", "agerange", "agegroup"],
-                  accountNumber: [
-                    "account",
-                    "accountnumber",
-                    "accountno",
-                    "account_number",
-                  ],
+                  // accountNumber: [
+                    // "account",
+                    // "accountnumber",
+                    // "accountno",
+                    // "account_number",
+                  // ],
                   state: ["state", "stateofresidence"],
                   lga: [
                     "lga",
@@ -3328,7 +3318,7 @@
                     organization: 4,
                     disabilityType: 5,
                     ageRange: 6,
-                    accountNumber: 7,
+                    // accountNumber: 7,
                     state: 8,
                     lga: 9,
                     designation: 10,
@@ -3387,7 +3377,7 @@
                     gender: getCellValue(row, "gender"),
                     disabilityType: getCellValue(row, "disabilityType"),
                     ageRange: getCellValue(row, "ageRange"),
-                    accountNumber: getCellValue(row, "accountNumber"),
+                    // accountNumber: getCellValue(row, "accountNumber"),
                     state: getCellValue(row, "state"),
                     lga: getCellValue(row, "lga"),
                     designation: getCellValue(row, "designation"),
@@ -3424,10 +3414,10 @@
             LGA: a.lga || "",
             Designation: a.designation || "",
             Address: a.address || "",
-            "Bank Name": a.bankName || "",
-            "Bank Code": a.bankCode || "",
-            "Account Number": a.accountNumber || "",
-            "Account Name": a.accountName || "",
+            // "Bank Name": a.bankName || "",
+            // "Bank Code": a.bankCode || "",
+            // "Account Number": a.accountNumber || "",
+            // "Account Name": a.accountName || "",
             "Checked In": a.checkedIn ? "Yes" : "No",
             "Checked In At": a.checkedInAt
               ? new Date(a.checkedInAt).toLocaleString()
@@ -3453,10 +3443,10 @@
             { wch: 18 }, // LGA
             { wch: 20 }, // Designation
             { wch: 35 }, // Address
-            { wch: 22 }, // Bank Name
-            { wch: 14 }, // Bank Code
-            { wch: 18 }, // Account Number
-            { wch: 25 }, // Account Name
+            // { wch: 22 }, // Bank Name
+            // { wch: 14 }, // Bank Code
+            // { wch: 18 }, // Account Number
+            // { wch: 25 }, // Account Name
             { wch: 14 }, // Checked In
             { wch: 22 }, // Checked In At
             { wch: 22 }, // Checked Out At
@@ -3542,7 +3532,7 @@
               state.pendingCheckInId = null;
               state.formError = "";
               state.formDraft = null;
-              resetBankFormState(null);
+              // resetBankFormState(null);
               render();
             });
 
@@ -3622,7 +3612,7 @@
                 state.formError =
                   "Complete all required fields below before checking in.";
                 state.formDraft = null;
-                resetBankFormState(attendee);
+                // resetBankFormState(attendee);
                 render();
                 return;
               }
@@ -3646,7 +3636,7 @@
               state.pendingCheckInId = null;
               state.formError = "";
               state.formDraft = null;
-              resetBankFormState(editing);
+              // resetBankFormState(editing);
               render();
             });
           });
@@ -3743,8 +3733,8 @@
                   lga: current["f-lga"],
                   designation: current["f-designation"],
                   address: current["f-address"],
-                  bankName: state.selectedBankName || "",
-                  accountNumber: state.accountNumberValue || "",
+                  // bankName: state.selectedBankName || "",
+                  // accountNumber: state.accountNumberValue || "",
                 };
                 if (isProfileComplete(checkinData)) state.formError = "";
               }
@@ -3763,6 +3753,7 @@
               render();
             });
 
+/* BANK SEARCH / BANK SELECTION / ACCOUNT VERIFICATION HANDLERS - COMMENTED OUT TEMPORARILY */
           // Bank search.
           const bankSearchInput = document.getElementById("f-bank-search");
           if (bankSearchInput) {
@@ -3827,8 +3818,8 @@
                       "",
                     address:
                       values["f-address"] || (editing && editing.address) || "",
-                    bankName: state.selectedBankName,
-                    accountNumber: state.accountNumberValue,
+                    // bankName: state.selectedBankName,
+                    // accountNumber: state.accountNumberValue,
                   };
                   if (isProfileComplete(checkinData)) state.formError = "";
                 }
@@ -3851,7 +3842,9 @@
             },
             { once: true },
           );
+/* END BANK SEARCH / BANK SELECTION / ACCOUNT VERIFICATION HANDLERS */
 
+/* ACCOUNT NUMBER INPUT / PAYSTACK AUTO-VERIFY - COMMENTED OUT TEMPORARILY */
           const accountNumberInput =
             document.getElementById("f-account-number");
           if (accountNumberInput) {
@@ -3877,6 +3870,7 @@
                 }
               }
             });
+/* END ACCOUNT NUMBER INPUT / PAYSTACK AUTO-VERIFY */
           }
 
           // Save Add/Edit form.
@@ -3927,10 +3921,10 @@
                 lga,
                 designation,
                 address,
-                bankName: state.selectedBankName || "",
-                bankCode: state.selectedBankCode || "",
-                accountNumber: state.accountNumberValue || "",
-                accountName: state.accountNameValue || "",
+                // bankName: state.selectedBankName || "",
+                // bankCode: state.selectedBankCode || "",
+                // accountNumber: state.accountNumberValue || "",
+                // accountName: state.accountNameValue || "",
               };
 
               const editingId = state.editingId;
@@ -3946,12 +3940,14 @@
                 render();
                 return;
               }
+/* ACCOUNT NUMBER VERIFICATION SAVE VALIDATION - COMMENTED OUT TEMPORARILY */
               if (state.accountNumberValue && state.bankStatus !== "verified") {
                 state.formError =
                   "Please wait for the account number to verify, or clear it.";
                 render();
                 return;
               }
+/* END ACCOUNT NUMBER VERIFICATION SAVE VALIDATION */
               state.saving = true;
               state.formError = "";
               render();
@@ -4168,5 +4164,551 @@
         })();
       })();
     </script>
+
+<!--
+=====================================================================
+BANK / ACCOUNT NUMBER FEATURE — PRESERVED COMMENTED-OUT CODE
+=====================================================================
+The original feature code is preserved below so it can be restored later.
+It is outside the JavaScript block and therefore does not execute.
+=====================================================================
+
+----- ACCOUNT NUMBER VERIFICATION SAVE VALIDATION -----
+              if (state.accountNumberValue && state.bankStatus !== "verified") {
+                state.formError =
+                  "Please wait for the account number to verify, or clear it.";
+                render();
+                return;
+              }
+
+----- SAVE PAYLOAD BANK/ACCOUNT LINE 3933 -----
+                accountName: state.accountNameValue || "",
+
+----- SAVE PAYLOAD BANK/ACCOUNT LINE 3932 -----
+                accountNumber: state.accountNumberValue || "",
+
+----- SAVE PAYLOAD BANK/ACCOUNT LINE 3931 -----
+                bankCode: state.selectedBankCode || "",
+
+----- SAVE PAYLOAD BANK/ACCOUNT LINE 3930 -----
+                bankName: state.selectedBankName || "",
+
+----- ACCOUNT NUMBER INPUT / PAYSTACK AUTO-VERIFY -----
+          const accountNumberInput =
+            document.getElementById("f-account-number");
+          if (accountNumberInput) {
+            accountNumberInput.addEventListener("input", (e) => {
+              captureFormDraft();
+              state.accountNumberValue = e.target.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+              state.bankStatus = "";
+              state.accountNameValue = "";
+
+              if (
+                state.accountNumberValue.length === 10 &&
+                state.selectedBankCode
+              ) {
+                resolveBankAccount();
+              } else {
+                render();
+                const el = document.getElementById("f-account-number");
+                if (el) {
+                  el.focus();
+                  el.selectionStart = el.selectionEnd = el.value.length;
+                }
+              }
+            });
+
+----- CHECK-IN DATA BANK/ACCOUNT LINE 3831 -----
+                    accountNumber: state.accountNumberValue,
+
+----- CHECK-IN DATA BANK/ACCOUNT LINE 3830 -----
+                    bankName: state.selectedBankName,
+
+----- BANK SEARCH / BANK SELECTION / ACCOUNT VERIFICATION HANDLERS -----
+          // Bank search.
+          const bankSearchInput = document.getElementById("f-bank-search");
+          if (bankSearchInput) {
+            bankSearchInput.addEventListener("focus", () => {
+              captureFormDraft();
+              state.bankDropdownOpen = true;
+              render();
+              const el = document.getElementById("f-bank-search");
+              if (el) {
+                el.focus();
+                el.selectionStart = el.selectionEnd = el.value.length;
+              }
+            });
+
+            bankSearchInput.addEventListener("input", (e) => {
+              captureFormDraft();
+              state.bankSearchText = e.target.value;
+              state.bankDropdownOpen = true;
+              render();
+              const el = document.getElementById("f-bank-search");
+              if (el) {
+                el.focus();
+                el.selectionStart = el.selectionEnd = el.value.length;
+              }
+            });
+          }
+
+          document
+            .querySelectorAll(".bank-option[data-bank-code]")
+            .forEach((opt) => {
+              opt.addEventListener("click", () => {
+                captureFormDraft();
+                state.selectedBankCode =
+                  opt.getAttribute("data-bank-code") || "";
+                state.selectedBankName =
+                  opt.getAttribute("data-bank-name") || "";
+                state.bankSearchText = state.selectedBankName;
+                state.bankDropdownOpen = false;
+                state.bankStatus = "";
+                state.accountNameValue = "";
+                if (state.formError) {
+                  const editing = state.editingId
+                    ? state.items.find((a) => a.id === state.editingId)
+                    : null;
+                  const values = state.formDraft || {};
+                  const checkinData = {
+                    name: values["f-name"] || (editing && editing.name) || "",
+                    phone:
+                      values["f-phone"] || (editing && editing.phone) || "",
+                    email:
+                      values["f-email"] || (editing && editing.email) || "",
+                    gender:
+                      values["f-gender"] || (editing && editing.gender) || "",
+                    ageRange:
+                      values["f-age"] || (editing && editing.ageRange) || "",
+                    state:
+                      values["f-state"] || (editing && editing.state) || "",
+                    lga: values["f-lga"] || (editing && editing.lga) || "",
+                    designation:
+                      values["f-designation"] ||
+                      (editing && editing.designation) ||
+                      "",
+                    address:
+                      values["f-address"] || (editing && editing.address) || "",
+                    // bankName: state.selectedBankName,
+                    // accountNumber: state.accountNumberValue,
+                  };
+                  if (isProfileComplete(checkinData)) state.formError = "";
+                }
+                render();
+                if (state.accountNumberValue.length === 10)
+                  resolveBankAccount();
+              });
+            });
+
+          document.addEventListener(
+            "click",
+            function outsideBankClick(e) {
+              if (
+                !e.target.closest(".bank-search-wrap") &&
+                state.bankDropdownOpen
+              ) {
+                state.bankDropdownOpen = false;
+                render();
+              }
+            },
+            { once: true },
+          );
+
+----- CHECK-IN DATA BANK/ACCOUNT LINE 3747 -----
+                  accountNumber: state.accountNumberValue || "",
+
+----- CHECK-IN DATA BANK/ACCOUNT LINE 3746 -----
+                  bankName: state.selectedBankName || "",
+
+----- BANK RESET CALL LINE 3649 -----
+              resetBankFormState(editing);
+
+----- BANK RESET CALL LINE 3625 -----
+                resetBankFormState(attendee);
+
+----- BANK RESET CALL LINE 3545 -----
+              resetBankFormState(null);
+
+----- EXPORT BANK/ACCOUNT LINE 3459 -----
+            { wch: 25 }, // Account Name
+
+----- EXPORT BANK/ACCOUNT LINE 3458 -----
+            { wch: 18 }, // Account Number
+
+----- EXPORT BANK/ACCOUNT LINE 3457 -----
+            { wch: 14 }, // Bank Code
+
+----- EXPORT BANK/ACCOUNT LINE 3456 -----
+            { wch: 22 }, // Bank Name
+
+----- EXPORT BANK/ACCOUNT LINE 3430 -----
+            "Account Name": a.accountName || "",
+
+----- EXPORT BANK/ACCOUNT LINE 3429 -----
+            "Account Number": a.accountNumber || "",
+
+----- EXPORT BANK/ACCOUNT LINE 3428 -----
+            "Bank Code": a.bankCode || "",
+
+----- EXPORT BANK/ACCOUNT LINE 3427 -----
+            "Bank Name": a.bankName || "",
+
+----- IMPORT ACCOUNT FIELD LINE 3390 -----
+                    accountNumber: getCellValue(row, "accountNumber"),
+
+----- IMPORT ACCOUNT FIELD LINE 3331 -----
+                    accountNumber: 7,
+
+----- IMPORT ACCOUNT FIELD LINE 3247 -----
+                  ],
+
+----- IMPORT ACCOUNT FIELD LINE 3246 -----
+                    "account_number",
+
+----- IMPORT ACCOUNT FIELD LINE 3245 -----
+                    "accountno",
+
+----- IMPORT ACCOUNT FIELD LINE 3244 -----
+                    "accountnumber",
+
+----- IMPORT ACCOUNT FIELD LINE 3243 -----
+                    "account",
+
+----- IMPORT ACCOUNT FIELD LINE 3242 -----
+                  accountNumber: [
+
+----- IMPORT ACCOUNT FIELD LINE 3124 -----
+              accountNumber,
+
+----- IMPORT ACCOUNT FIELD LINE 3099 -----
+            const accountNumber = getValue(parts, "accountNumber");
+
+----- IMPORT ACCOUNT FIELD LINE 3069 -----
+              accountNumber: 7,
+
+----- IMPORT ACCOUNT FIELD LINE 3028 -----
+            accountNumber: ["account", "accountnumber", "accountno"],
+
+----- PAYSTACK BANK ACCOUNT RESOLUTION FUNCTION -----
+        async function resolveBankAccount() {
+          if (state.accountNumberValue.length !== 10 || !state.selectedBankCode)
+            return;
+          captureFormDraft();
+          state.bankStatus = "verifying";
+          state.accountNameValue = "";
+          render();
+          try {
+            const res = await apiFetch(
+              `/staff/banks/resolve?accountNumber=${encodeURIComponent(state.accountNumberValue)}&bankCode=${encodeURIComponent(state.selectedBankCode)}`,
+            );
+            const data = await res.json();
+            if (!res.ok) {
+              state.bankStatus = "error";
+              state.accountNameValue =
+                data.error || "Could not verify this account.";
+              render();
+              return;
+            }
+            state.bankStatus = "verified";
+            state.accountNameValue = data.accountName;
+            render();
+          } catch (e) {
+            state.bankStatus = "error";
+
+----- BANK DETAILS UI -----
+            <div class="form-section-title">Bank Details</div>
+            <div class="bank-details-card">
+              <div class="field bank-search-wrap">
+                <label>Bank</label>
+                <input id="f-bank-search" autocomplete="off" value="${esc(state.bankSearchText)}" placeholder="Search or select bank" />
+                ${
+                  state.bankDropdownOpen
+                    ? `
+                  <div class="bank-dropdown" id="bank-dropdown">
+                    ${filteredBanks.length ? filteredBanks.map((b) => `<div class="bank-option" data-bank-code="${esc(b.code)}" data-bank-name="${esc(b.name)}">${esc(b.name)}</div>`).join("") : `<div class="bank-option" style="color:var(--muted);cursor:default;">No banks found</div>`}
+                  </div>
+                `
+                    : ""
+                }
+              </div>
+              <div class="bank-account-row">
+                <div class="field"><label>Account Number</label><input id="f-account-number" maxlength="10" inputmode="numeric" value="${esc(state.accountNumberValue)}" placeholder="10-digit NUBAN" /></div>
+                <div class="field"><label>Account Name</label>
+                  <input id="f-account-name" value="${esc(state.accountNameValue)}" placeholder="Auto-filled after verification" readonly />
+                </div>
+              </div>
+              ${bankStatusHtml ? `<div class="field">${bankStatusHtml}</div>` : ""}
+            </div>
+
+----- BANK FILTERING / BANK STATUS DISPLAY -----
+          const filteredBanks = state.bankSearchText
+            ? NIGERIAN_BANKS.filter((b) =>
+                b.name
+                  .toLowerCase()
+                  .includes(state.bankSearchText.toLowerCase()),
+              )
+            : NIGERIAN_BANKS;
+
+          let bankStatusHtml = "";
+          if (state.bankStatus === "verifying")
+            bankStatusHtml = `<div class="bank-status verifying">Verifying account…</div>`;
+          else if (state.bankStatus === "verified")
+            bankStatusHtml = `<div class="bank-status verified">✓ ${esc(state.accountNameValue)}</div>`;
+          else if (state.bankStatus === "error")
+            bankStatusHtml = `<div class="bank-status error">${esc(state.accountNameValue || "Could not verify this account.")}</div>`;
+
+----- BANK FORM STATE RESET -----
+        function resetBankFormState(editing) {
+          state.bankSearchText = editing ? editing.bankName || "" : "";
+          state.bankDropdownOpen = false;
+          state.selectedBankCode = editing ? editing.bankCode || "" : "";
+          state.selectedBankName = editing ? editing.bankName || "" : "";
+          state.accountNumberValue = editing ? editing.accountNumber || "" : "";
+          state.accountNameValue = editing ? editing.accountName || "" : "";
+          state.bankStatus = editing && editing.accountName ? "verified" : "";
+        }
+
+----- BANK STATE LINE 2380 -----
+          bankStatus: "",
+
+----- BANK STATE LINE 2379 -----
+          accountNameValue: "",
+
+----- BANK STATE LINE 2378 -----
+          accountNumberValue: "",
+
+----- BANK STATE LINE 2377 -----
+          selectedBankName: "",
+
+----- BANK STATE LINE 2376 -----
+          selectedBankCode: "",
+
+----- BANK STATE LINE 2375 -----
+          bankDropdownOpen: false,
+
+----- BANK STATE LINE 2374 -----
+          bankSearchText: "",
+
+----- NIGERIAN BANK LIST -----
+        const NIGERIAN_BANKS = [
+          { name: "Access Bank", code: "044" },
+          { name: "Access Bank (Diamond)", code: "063" },
+          { name: "ALAT by WEMA", code: "035A" },
+          { name: "Amju Unique MFB", code: "50926" },
+          { name: "Aswof MFB", code: "50117" },
+          { name: "Baines Credit MFB", code: "51229" },
+          { name: "Carbon", code: "565" },
+          { name: "Citibank Nigeria", code: "023" },
+          { name: "Coronation Merchant Bank", code: "307" },
+          { name: "Covenant MFB", code: "551" },
+          { name: "Dot MFB", code: "50162" },
+          { name: "Ecobank Nigeria", code: "050" },
+          { name: "Ekondo Microfinance Bank", code: "562" },
+          { name: "Eyowo", code: "50126" },
+          { name: "Fairmoney Microfinance Bank", code: "51318" },
+          { name: "Fidelity Bank", code: "070" },
+          { name: "Firmus MFB", code: "51314" },
+          { name: "First Bank of Nigeria", code: "011" },
+          { name: "First City Monument Bank (FCMB)", code: "215" },
+          { name: "FSDH Merchant Bank", code: "309" },
+          { name: "Globus Bank", code: "00103" },
+          { name: "GoMoney", code: "50739" },
+          { name: "Guaranty Trust Bank (GTB)", code: "058" },
+          { name: "Hasal MFB", code: "50383" },
+          { name: "Heritage Bank", code: "030" },
+          { name: "HopePSB", code: "120002" },
+          { name: "Ibile Microfinance Bank", code: "51244" },
+          { name: "Infinity MFB", code: "50457" },
+          { name: "Jaiz Bank", code: "301" },
+          { name: "Kadpoly MFB", code: "50502" },
+          { name: "Keystone Bank", code: "082" },
+          { name: "Kuda Bank", code: "50211" },
+          { name: "Links MFB", code: "50549" },
+          { name: "Living Trust MFB", code: "50554" },
+          { name: "Lotus Bank", code: "302" },
+          { name: "Mayfair MFB", code: "50587" },
+          { name: "Mint MFB", code: "50304" },
+          { name: "Moniepoint MFB", code: "50515" },
+          { name: "Nova Merchant Bank", code: "305" },
+          { name: "OPay", code: "999992" },
+          { name: "Optimus Bank", code: "107" },
+          { name: "Paga", code: "100002" },
+          { name: "Page Financials", code: "50744" },
+          { name: "Palmpay", code: "999991" },
+          { name: "Parallex Bank", code: "104" },
+          { name: "Parkway - ReadyCash", code: "311" },
+          { name: "Polaris Bank", code: "076" },
+          { name: "PremiumTrust Bank", code: "105" },
+          { name: "Providus Bank", code: "101" },
+          { name: "QuickFund MFB", code: "50777" },
+          { name: "Rubies MFB", code: "125" },
+          { name: "Safe Haven MFB", code: "51113" },
+          { name: "Signature Bank", code: "106" },
+          { name: "Solid Allianze MFB", code: "50800" },
+          { name: "Stanbic IBTC Bank", code: "214" },
+          { name: "Standard Chartered Bank", code: "068" },
+          { name: "Sterling Bank", code: "232" },
+          { name: "Suntrust Bank", code: "100" },
+          { name: "TAJ Bank", code: "302" },
+          { name: "Titan Trust Bank", code: "102" },
+          { name: "Union Bank of Nigeria", code: "032" },
+          { name: "United Bank for Africa (UBA)", code: "033" },
+          { name: "Unity Bank", code: "215" },
+          { name: "VFD Microfinance Bank", code: "566" },
+          { name: "Wema Bank", code: "035" },
+          { name: "Zenith Bank", code: "057" },
+        ];
+
+----- CHECK-IN BANK REQUIREMENT LINE 1418 -----
+          accountNumber: "Account number",
+
+----- CHECK-IN BANK REQUIREMENT LINE 1417 -----
+          bankName: "Bank",
+
+----- CHECK-IN BANK REQUIREMENT LINE 1406 -----
+          "accountNumber",
+
+----- CHECK-IN BANK REQUIREMENT LINE 1405 -----
+          "bankName",
+
+----- MOBILE BANK ACCOUNT CSS -----
+        .bank-dropdown {
+          max-height: 200px;
+          overflow-y: auto;
+          bottom: calc(100% + 7px);
+        }
+
+        .bank-option {
+          padding: 11px 12px;
+          min-height: 42px;
+        }
+
+        .bank-details-card {
+          padding: 12px;
+          border-radius: 12px;
+        }
+
+        .bank-account-row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        .bank-search-wrap label::after {
+          display: none;
+        }
+
+----- BANK ACCOUNT CSS -----
+      .bank-search-wrap {
+        position: relative;
+      }
+
+      .bank-search-wrap label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .bank-search-wrap label::after {
+        content: "Search to find your bank";
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--muted);
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      .bank-dropdown {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: calc(100% + 8px);
+        z-index: 100;
+        max-height: 230px;
+        overflow-y: auto;
+        padding: 6px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 12px 28px rgba(33, 23, 18, 0.18);
+      }
+
+      .bank-option {
+        padding: 11px 12px;
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
+      }
+
+      .bank-option:hover {
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+      }
+
+      #f-bank-search {
+        padding-right: 38px;
+        background: #fff;
+        border-color: var(--border);
+        box-shadow: inset 0 0 0 1px rgba(250, 148, 17, 0.03);
+      }
+
+      #f-bank-search:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(250, 148, 17, 0.12);
+      }
+
+      .bank-details-card {
+        background: linear-gradient(180deg, #fffdf9 0%, #fff 100%);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+        margin-top: 2px;
+      }
+
+      .bank-details-card .field {
+        margin-bottom: 12px;
+      }
+
+      .bank-details-card .field:last-child {
+        margin-bottom: 0;
+      }
+
+      .bank-account-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .bank-status {
+        min-height: 18px;
+        margin-top: 2px;
+        padding: 7px 9px;
+        border-radius: 8px;
+        background: var(--header-bg);
+      }
+
+      .bank-status.verifying {
+        color: var(--accent-dark);
+      }
+      .bank-status.verified {
+        color: #0e3d2a;
+        font-weight: 700;
+      }
+      .bank-status.error {
+        color: var(--bad);
+      }
+
+=====================================================================
+END PRESERVED BANK / ACCOUNT NUMBER FEATURE
+=====================================================================
+-->
+
   </body>
 </html>
