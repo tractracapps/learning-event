@@ -14,7 +14,7 @@
         --border: #e8dccb;
         --header-bg: #fffefc;
         --accent: #fa9411;
-        --accent-dark: #c96f05;
+        --accent-dark: #e27f0d;
         --accent-soft: #fde9cf;
         --good: #1f1a16;
         --good-soft: #ede8e1;
@@ -903,11 +903,24 @@
           align-items: stretch;
           gap: 14px;
         }
+      .event-brand {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        width: 180px;
+        height:50px;
+      }
 
+      .event-logo {
+        display: block;
+        width: 180px;
+        height: 50px;
+        object-fit: contain;
+      }
         .title-input {
           width: 100%;
           max-width: 100%;
-          font-size: 23px;
+          font-size: 19px;
           line-height: 1.25;
         }
 
@@ -2572,38 +2585,38 @@
         }
       </div>
     </div>
-  `
+          `
           : state.items
               .map(
                 (a, idx) => `
     
   <div class="row">
 
-     <div class="row-top">
+    <div class="row-top">
 
       <div class="attendee-info">
 
-          <!-- Attendee Name -->
-          <div class="row-name">
-            ${idx + 1}. ${esc(a.name)}
-          </div>
+        <!-- Attendee Name -->
+        <div class="row-name">
+          ${idx + 1}. ${esc(a.name)}
+        </div>
 
-          <!-- Main Attendee Information -->
-         <div class="attendee-details-scroll">
+        <!-- Main Attendee Information -->
+        <div class="attendee-details-scroll">
           <div class="attendee-details">
 
             <div class="detail-item">
               <span class="detail-label">Phone</span>
-                 <span class="detail-value">
-                    ${esc(a.phone) || "—"}
-                    </span>
-              </div>
+              <span class="detail-value">
+                ${esc(a.phone) || "—"}
+              </span>
+            </div>
 
             <div class="detail-item">
-                <span class="detail-label">Email</span>
-                  <span class="detail-value">
-                    ${esc(a.email) || "—"}
-                    </span>
+              <span class="detail-label">Email</span>
+              <span class="detail-value">
+                ${esc(a.email) || "—"}
+              </span>
             </div>
 
             <div class="detail-item">
@@ -2620,66 +2633,64 @@
               </span>
             </div>
 
-             <div class="detail-item">
-               <span class="detail-label">Signature</span>
-               <span class="signature-badge ${a.checkedIn && a.hasSignature ? "signed" : "not-signed"}">
-                  ${a.checkedIn && a.hasSignature ? "✓ Signed" : "Not Signed"}
-                </span>
-              </div>
+            <div class="detail-item">
+              <span class="detail-label">Signature</span>
+              <span class="signature-badge ${a.checkedIn && a.hasSignature ? "signed" : "not-signed"}">
+                ${a.checkedIn && a.hasSignature ? "✓ Signed" : "Not Signed"}
+              </span>
+            </div>
+
+          </div>
         </div>
+
       </div>
-    </div>
-   </div> 
 
-        <!-- Check-in Status -->
-        <span class="badge ${a.checkedIn ? "in" : "out"}">
-          <span class="badge-dot"></span>
-          ${a.checkedIn ? "Checked In" : "Not Checked In"}
-        </span>
+      <!-- Check-in Status -->
+      <span class="badge ${a.checkedIn ? "in" : "out"}">
+        <span class="badge-dot"></span>
+        ${a.checkedIn ? "Checked In" : "Not Checked In"}
+      </span>
 
     </div>
 
-      <!-- Actions -->
+    <!-- Actions -->
     <div class="row-actions">
 
-        <button
-          class="row-btn ${a.checkedIn ? "state-in" : "state-out"}"
-          data-toggle="${a.id}"
-          data-current="${a.checkedIn ? "1" : "0"}"
-        >
-          ${a.checkedIn ? "Check out" : "Check in"}
-        </button>
+      <button
+        class="row-btn ${a.checkedIn ? "state-in" : "state-out"}"
+        data-toggle="${a.id}"
+        data-current="${a.checkedIn ? "1" : "0"}"
+      >
+        ${a.checkedIn ? "Check out" : "Check in"}
+      </button>
 
-        <button
-          class="row-btn"
-          data-edit="${a.id}"
-        >
-          Edit
-        </button>
+      <button
+        class="row-btn"
+        data-edit="${a.id}"
+      >
+        Edit
+      </button>
 
-        <button
-          class="row-btn delete"
-          data-delete="${a.id}"
-        >
-          Delete
-        </button>
-
-      </div>
+      <button
+        class="row-btn delete"
+        data-delete="${a.id}"
+      >
+        Delete
+      </button>
 
     </div>
 
-  `,
+  </div>
+
+`
               )
-              .join("")
-      }
-</div>
-        </div>
+              .join("")}
 
         ${state.modalOpen ? renderModal() : ""}
         ${state.importOpen ? renderImportModal() : ""}
         ${state.signAttendeeId ? renderSignModal() : ""}
       `;
-          attachHandlers();
+  attachHandlers();
         }
 
         function selectOptions(options, current) {
