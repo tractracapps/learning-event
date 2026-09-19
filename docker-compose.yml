@@ -4,12 +4,15 @@ services:
       context: .
       dockerfile: Dockerfile
     image: learning-event:latest
-    container_name: learning-event
     restart: unless-stopped
+    # Local runs read .env; on Coolify env vars come from the UI instead.
     env_file:
-      - .env
-    ports:
-      - "${PORT:-3000}:3000"
+      - path: .env
+        required: false
+    # Do NOT publish a host port. Coolify's Traefik proxy reaches the container
+    # over the internal network; binding 0.0.0.0:3000 clashes with other apps.
+    expose:
+      - "3000"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
       interval: 30s

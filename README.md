@@ -143,8 +143,14 @@ docker compose up -d --build
 
 # verify
 docker compose ps                       # STATUS should show "healthy" after ~20s
-curl -s http://localhost:3000/health
+docker compose exec app wget -qO- http://127.0.0.1:3000/health
 ```
+
+The compose file deliberately does **not** publish a host port. On Coolify the
+built-in Traefik proxy routes your domain to the container's port 3000 over the
+internal network, and set `MONGODB_URI`, `JWT_SECRET` and `STAFF_PASSWORD` in the
+Coolify **Environment Variables** tab. For a bare `docker compose` host without a
+proxy, add `ports: ["3000:3000"]` under the `app` service.
 
 Updating to a new version:
 
