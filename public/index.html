@@ -3929,16 +3929,20 @@
                 : "";
               const address = addressEl ? addressEl.value.trim() : "";
 
-                if (!name) {
-                  state.formError = "Full name is required.";
-                  render();
-                  return;
-                }
-                if (!editingId && !phone) {
-                  state.formError = "Phone number is required for new attendees.";
-                  render();
-                  return;
-                }
+              const editingId = state.editingId;
+              const pendingCheckInId = state.pendingCheckInId;
+
+              if (!name) {
+                state.formError = "Full name is required.";
+                render();
+                return;
+              }
+
+              if (!editingId && !phone) {
+                state.formError = "Phone number is required for new attendees.";
+                render();
+                return;
+              }
 
               const payload = {
                 name,
@@ -3952,16 +3956,11 @@
                 lga,
                 designation,
                 address,
-                // bankName: state.selectedBankName || "",
-                // bankCode: state.selectedBankCode || "",
-                // accountNumber: state.accountNumberValue || "",
-                // accountName: state.accountNameValue || "",
               };
 
-              const editingId = state.editingId;
-              const pendingCheckInId = state.pendingCheckInId;
               const returnToCheckIn =
                 !!pendingCheckInId && pendingCheckInId === editingId;
+
 
               // Validate everything required for check-in before saving the special Check-In edit.
               if (returnToCheckIn && !isProfileComplete(payload)) {
