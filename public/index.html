@@ -3929,11 +3929,16 @@
                 : "";
               const address = addressEl ? addressEl.value.trim() : "";
 
-              if (!name || !phone) {
-                state.formError = "Name and phone number are required.";
-                render();
-                return;
-              }
+                if (!name) {
+                  state.formError = "Full name is required.";
+                  render();
+                  return;
+                }
+                if (!editingId && !phone) {
+                  state.formError = "Phone number is required for new attendees.";
+                  render();
+                  return;
+                }
 
               const payload = {
                 name,
@@ -4132,6 +4137,7 @@
                   method: "POST",
                   body: JSON.stringify({ rows }),
                 });
+                
                 const summary = await res.json();
                 if (!res.ok) {
                   alert(summary.error || "Import failed.");
