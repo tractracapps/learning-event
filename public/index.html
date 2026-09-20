@@ -4133,6 +4133,7 @@
               }
 
               try {
+                console.log("ROWS BEING SENT TO SERVER:", rows);
                 const res = await apiFetch("/staff/attendees/import", {
                   method: "POST",
                   body: JSON.stringify({ rows }),
