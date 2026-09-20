@@ -10,7 +10,7 @@ const attendeeSchema = new mongoose.Schema(
 
     phone: {
       type: String,
-      required: true,
+      default: '',
       trim: true
     },
 
@@ -49,15 +49,19 @@ const attendeeSchema = new mongoose.Schema(
       default: '',
       trim: true
     },
+
     lga: {
       type: String,
-      default: ''
+      default: '',
+      trim: true
     },
 
     designation: {
       type: String,
-      default: ''
+      default: '',
+      trim: true
     },
+
     address: {
       type: String,
       default: '',

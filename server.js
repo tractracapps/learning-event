@@ -729,27 +729,28 @@ app.post('/api/staff/attendees/import', requireAuth, async (req, res) => {
       const name = String(row.name || '').trim();
       const phone = String(row.phone || '').trim();
 
-      if (!name || !phone) {
-        invalid++;
-        continue;
+      if (!row.name || !String(row.name).trim()) {
+      invalid++;
+      continue;
       }
 
       const normalizedPhone = normalizePhone(phone);
 
-      if (!normalizedPhone) {
-        invalid++;
-        continue;
-      }
-
       if (
-        existingPhones.has(normalizedPhone) ||
-        importPhones.has(normalizedPhone)
+        normalizedPhone &&
+        (
+          existingPhones.has(normalizedPhone) ||
+          importPhones.has(normalizedPhone)
+        )
       ) {
         duplicates++;
         continue;
       }
 
-      importPhones.add(normalizedPhone);
+      if (normalizedPhone) {
+        importPhones.add(normalizedPhone);
+      }
+
 
       documents.push({
         name,
