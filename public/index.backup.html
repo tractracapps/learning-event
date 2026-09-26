@@ -195,230 +195,6 @@
         color: var(--accent-dark);
       }
 
-      .events-home {
-        padding: 28px 0 10px;
-      }
-
-      .events-home-head {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 24px;
-        flex-wrap: wrap;
-      }
-
-      .events-eyebrow {
-        font-size: 11px;
-        font-weight: 800;
-        color: var(--accent-dark);
-        text-transform: uppercase;
-        letter-spacing: .08em;
-        margin-bottom: 7px;
-      }
-
-      .events-home h1 {
-        margin: 0;
-        font-size: 30px;
-        letter-spacing: -0.03em;
-      }
-
-      .events-subtitle {
-        margin: 7px 0 0;
-        color: var(--ink-soft);
-        font-size: 14px;
-      }
-
-      .event-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      .event-card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 20px;
-        min-height: 225px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        box-shadow: 0 5px 16px rgba(33, 23, 18, 0.04);
-      }
-
-      .event-card:hover {
-        border-color: #d9c6ad;
-        box-shadow: 0 8px 22px rgba(33, 23, 18, 0.07);
-      }
-
-      .event-card-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 12px;
-      }
-
-      .event-card-name {
-        font-size: 17px;
-        font-weight: 750;
-        line-height: 1.3;
-      }
-
-      .event-status {
-        flex: 0 0 auto;
-        padding: 5px 9px;
-        border-radius: 20px;
-        font-size: 10px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: .04em;
-      }
-
-      .event-status.active {
-        background: #c4fcde;
-        color: #176a49;
-      }
-
-      .event-status.draft {
-        background: var(--accent-soft);
-        color: var(--accent-dark);
-      }
-
-      .event-status.closed,
-      .event-status.archived {
-        background: var(--good-soft);
-        color: var(--ink-soft);
-      }
-
-      .event-card-meta {
-        display: grid;
-        gap: 8px;
-        margin-top: 18px;
-        font-size: 12.5px;
-        color: var(--ink-soft);
-      }
-
-      .event-card-meta strong {
-        color: var(--ink);
-        font-weight: 700;
-      }
-
-      .event-card-menu-wrap {
-        position: relative;
-        flex: 0 0 auto;
-      }
-
-      .event-menu-btn {
-        width: 32px;
-        height: 32px;
-        border: 1px solid var(--border);
-        background: var(--panel);
-        border-radius: 9px;
-        cursor: pointer;
-        font-size: 20px;
-        line-height: 1;
-        color: var(--ink-soft);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .event-menu-btn:hover {
-        background: var(--accent-soft);
-        color: var(--ink);
-      }
-
-      .event-menu {
-        position: absolute;
-        right: 0;
-        top: 38px;
-        z-index: 20;
-        min-width: 170px;
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        box-shadow: 0 10px 28px rgba(33, 23, 18, 0.14);
-        padding: 6px;
-      }
-
-      .event-menu button {
-        width: 100%;
-        border: 0;
-        background: transparent;
-        text-align: left;
-        padding: 9px 10px;
-        border-radius: 7px;
-        cursor: pointer;
-        font: inherit;
-        font-size: 12.5px;
-        color: var(--ink);
-      }
-
-      .event-menu button:hover {
-        background: var(--accent-soft);
-      }
-
-      .event-menu button.danger {
-        color: #a33a2f;
-      }
-
-      .event-card-actions {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
-      }
-
-      .create-event-card {
-        border: 1.5px dashed #d8c6b1;
-        background: #fffdf9;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        cursor: pointer;
-      }
-
-      .create-event-card:hover {
-        border-color: var(--accent);
-        background: #fffaf3;
-      }
-
-      .create-event-plus {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--accent-soft);
-        color: var(--accent-dark);
-        font-size: 27px;
-        font-weight: 400;
-        margin-bottom: 12px;
-      }
-
-      .create-event-title {
-        font-weight: 750;
-        font-size: 15px;
-      }
-
-      .create-event-copy {
-        max-width: 230px;
-        margin-top: 6px;
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.45;
-      }
-
-      .event-empty {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 55px 20px;
-        border: 1px dashed var(--border);
-        border-radius: 16px;
-        color: var(--muted);
-      }
-
       .stats {
         display: flex;
         gap: 14px;
@@ -1192,28 +968,6 @@
           margin-bottom: 12px;
           padding: 10px 12px;
           font-size: 12.5px;
-        }
-
-        .events-home {
-          padding-top: 18px;
-        }
-
-        .events-home h1 {
-          font-size: 24px;
-        }
-
-        .events-home-head {
-          align-items: stretch;
-        }
-
-        .events-home-head > .btn {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .event-grid {
-          grid-template-columns: 1fr;
-          gap: 12px;
         }
 
         .stats {
@@ -2630,17 +2384,6 @@
 /* END NIGERIAN BANK LIST */
         let state = {
           loading: true,
-          events: [],
-          selectedEventId: null,
-          selectedEvent: null,
-          view: "events",
-          createEventOpen: false,
-          createEventError: "",
-          createEventDraft: { name: "", date: "", location: "", capacity: "170" },
-          creatingEvent: false,
-          eventActionOpen: false,
-          eventActionId: null,
-          eventActionMode: null,
           meta: {
             name: "YEAR 2 LEARNING EVENT",
             date: "",
@@ -2706,51 +2449,6 @@
           }
           return res;
         }
-        async function loadEvents(){
-  try {
-    const res = await apiFetch('/staff/events');
-
-    if (!res.ok) {
-      console.error('Could not load events');
-      return;
-    }
-
-    const events = await res.json();
-
-    state.events = events || [];
-
-    if (!state.events.length) {
-      state.selectedEventId = null;
-      state.selectedEvent = null;
-      return;
-    }
-
-    // Keep the current selection if it still exists.
-    const current = state.events.find(
-      event => event._id === state.selectedEventId
-    );
-
-    if (current) {
-      state.selectedEvent = current;
-    } else {
-      state.selectedEventId = null;
-      state.selectedEvent = null;
-    }
-
-    // Keep the existing UI compatible with the selected event.
-    if (state.selectedEvent) {
-      state.meta = {
-        ...state.meta,
-        name: state.selectedEvent.name || "",
-        date: state.selectedEvent.date || "",
-        capacity: state.selectedEvent.capacity || CAPACITY_DEFAULT
-      };
-    }
-
-  } catch (e) {
-    console.error("Could not load events:", e);
-  }
-}
 
         async function loadMeta() {
           try {
@@ -2765,31 +2463,10 @@
         async function loadAttendees() {
           try {
             const params = new URLSearchParams();
-
-              if (state.selectedEventId) {
-                params.set('eventId', state.selectedEventId);
-              }
-
-              if (state.search.trim()) {
-                params.set('search', state.search.trim());
-              }
-
-              if (state.filter === 'in') {
-                params.set('checkedIn', 'true');
-              }
-
-              if (state.filter === 'out') {
-                params.set('checkedIn', 'false');
-              }
-
-              if (!state.selectedEventId) {
-                state.items = [];
-                return;
-              }
-
-              const res = await apiFetch(`/staff/attendees?${params.toString()}`);;
-
-
+            if (state.search.trim()) params.set("search", state.search.trim());
+            if (state.filter === "in") params.set("checkedIn", "true");
+            if (state.filter === "out") params.set("checkedIn", "false");
+            const res = await apiFetch(`/staff/attendees?${params.toString()}`);
             if (res.ok) {
               const data = await res.json();
               state.items = data.items || [];
@@ -2822,23 +2499,10 @@
           state.bankStatus = editing && editing.accountName ? "verified" : "";
         }
 /* END BANK FORM STATE RESET */
-        async function refreshAll(){
-          await loadEvents();
-
-          if (state.selectedEventId) {
-            await loadAttendees();
-          } else {
-            state.items = [];
-            state.stats = {
-              totalAttendees: 0,
-              checkedInCount: 0,
-              notCheckedInCount: 0
-            };
-          }
-
+        async function refreshAll() {
+          await Promise.all([loadMeta(), loadAttendees()]);
           render();
         }
-        
         function captureFormDraft() {
           const ids = [
             "f-name",
@@ -2868,7 +2532,7 @@
           return draft[id] !== undefined ? draft[id] : fallback;
         }
 
-        function renderDashboard() {
+        function render() {
           if (state.loading) {
             root.innerHTML =
               '<div class="loading">Loading registrations…</div>';
@@ -2896,7 +2560,6 @@
           </div>
           <div class="header-top">
             <div>
-              <button class="btn" id="back-events-btn" style="margin-bottom:10px;">← All Events</button>
               <input class="title-input" id="name-input" value="${esc(state.meta.name)}" placeholder="Event name" />
               <br/>
               <input class="date-input" id="date-input" value="${esc(state.meta.date)}" placeholder="" />
@@ -3279,10 +2942,9 @@
                   {
                     method: "PATCH",
                     body: JSON.stringify({
-                    eventId: state.selectedEventId,
-                    checkedIn: true,
-                    signatureData: dataUrl
-                  })
+                      checkedIn: true,
+                      signatureData: dataUrl,
+                    }),
                   },
                 );
                 const data = await res.json();
@@ -3847,583 +3509,29 @@
             }
           });
         }
-
-
-        function renderEventsHome() {
-          const events = state.events || [];
-
-          root.innerHTML = `
-            <div class="header">
-              <div class="event-brand">
-                <img src="assets/tt-logo.png" alt="TracTrac Logo" class="event-logo">
-              </div>
-
-              <div class="events-home">
-                <div class="events-home-head">
-                  <div>
-                    <div class="events-eyebrow">Staff Portal</div>
-                    <h1>Your Events</h1>
-                    <p class="events-subtitle">Choose an event to manage registrations, attendees and check-ins.</p>
-                  </div>
-
-                  <button class="btn btn-primary" id="create-event-btn">+ Create Event</button>
-                </div>
-
-                <div class="event-grid">
-                  ${
-                    events.length
-                      ? events.map(event => `
-                          <div class="event-card">
-                            <div>
-                              <div class="event-card-top">
-                                <div class="event-card-name">${esc(event.name)}</div>
-                                <div class="event-card-menu-wrap">
-                                  <button class="event-menu-btn" type="button" aria-label="Event actions" data-event-menu="${esc(event._id)}">⋮</button>
-                                  <div class="event-menu" id="event-menu-${esc(event._id)}" hidden>
-                                    <button type="button" data-event-action="edit" data-event-id="${esc(event._id)}">Edit event</button>
-                                    ${event.status === "active" ? `<button type="button" data-event-action="close" data-event-id="${esc(event._id)}">Close registration</button>` : ""}
-                                    ${event.status === "closed" ? `<button type="button" data-event-action="reopen" data-event-id="${esc(event._id)}">Reopen registration</button>` : ""}
-                                    ${event.status !== "archived" ? `<button type="button" class="danger" data-event-action="archive" data-event-id="${esc(event._id)}">Archive event</button>` : `<button type="button" data-event-action="reopen" data-event-id="${esc(event._id)}">Restore event</button>`}
-                                    <button type="button" class="danger" data-event-action="delete" data-event-id="${esc(event._id)}">Delete event</button>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div style="margin-top:8px;">
-                                <span class="event-status ${esc(event.status || "draft")}">${esc(event.status || "draft")}</span>
-                              </div>
-
-                              <div class="event-card-meta">
-                                <div>📅 <strong>${esc(event.date || "Date not set")}</strong></div>
-                                <div>📍 <strong>${esc(event.location || "Location not set")}</strong></div>
-                                <div>👥 Capacity: <strong>${esc(event.capacity || 0)}</strong></div>
-                              </div>
-                            </div>
-
-                            <div class="event-card-actions">
-                              <button class="btn btn-primary" data-open-event="${esc(event._id)}">Open Event →</button>
-                            </div>
-                          </div>
-                        `).join("")
-                      : `
-                          <div class="event-empty">
-                            <div style="font-size:30px;margin-bottom:8px;">📅</div>
-                            <strong>No events yet</strong>
-                            <div style="margin-top:5px;">Create your first event to start managing registrations.</div>
-                          </div>
-                        `
-                  }
-
-                  <div class="event-card create-event-card" id="create-event-card">
-                    <div>
-                      <div class="create-event-plus">+</div>
-                      <div class="create-event-title">Create New Event</div>
-                      <div class="create-event-copy">Set up an event with its date, location and registration capacity.</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            ${
-              state.createEventOpen
-                ? `
-                  <div class="modal-overlay" id="create-event-overlay">
-                    <div class="modal">
-                      <h3>Create New Event</h3>
-                      <p class="sub">Add the basic details for the event.</p>
-
-                      <div class="field">
-                        <label>Event name</label>
-                        <input id="new-event-name" value="${esc(state.createEventDraft?.name || "")}" placeholder="e.g. ISSAM Stakeholder Workshop" />
-                      </div>
-
-                      <div class="field">
-                        <label>Date <span class="optional">(optional)</span></label>
-                        <input id="new-event-date" value="${esc(state.createEventDraft?.date || "")}" placeholder="e.g. 25 September 2026" />
-                      </div>
-
-                      <div class="field">
-                        <label>Location <span class="optional">(optional)</span></label>
-                        <input id="new-event-location" value="${esc(state.createEventDraft?.location || "")}" placeholder="e.g. Abuja, Nigeria" />
-                      </div>
-
-                      <div class="field">
-                        <label>Registration capacity</label>
-                        <input id="new-event-capacity" type="number" min="1" value="${esc(state.createEventDraft?.capacity || "170")}" />
-                      </div>
-
-                      ${
-                        state.createEventError
-                          ? `<div class="error-text">${esc(state.createEventError)}</div>`
-                          : ""
-                      }
-
-                      <div class="modal-actions">
-                        <button class="btn" id="create-event-cancel" ${state.creatingEvent ? "disabled" : ""}>Cancel</button>
-                        <button class="btn btn-primary" id="create-event-submit" ${state.creatingEvent ? "disabled" : ""}>
-                          ${state.creatingEvent ? "Creating…" : "Create Event"}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                `
-                : ""
-            }
-
-            ${
-              state.eventActionOpen && state.eventActionMode === "edit"
-                ? (() => {
-                    const selected = state.events.find((e) => e._id === state.eventActionId);
-                    if (!selected) return "";
-                    return `
-                      <div class="modal-overlay" id="edit-event-overlay">
-                        <div class="modal">
-                          <h3>Edit Event</h3>
-                          <p class="sub">Update the event details and registration status.</p>
-
-                          <div class="field">
-                            <label>Event name</label>
-                            <input id="edit-event-name" value="${esc(selected.name || "")}" />
-                          </div>
-
-                          <div class="field">
-                            <label>Date</label>
-                            <input id="edit-event-date" value="${esc(selected.date || "")}" placeholder="e.g. 25 September 2026" />
-                          </div>
-
-                          <div class="field">
-                            <label>Location</label>
-                            <input id="edit-event-location" value="${esc(selected.location || "")}" />
-                          </div>
-
-                          <div class="field">
-                            <label>Registration capacity</label>
-                            <input id="edit-event-capacity" type="number" min="1" value="${esc(selected.capacity || 170)}" />
-                          </div>
-
-                          <div class="field">
-                            <label>Status</label>
-                            <select id="edit-event-status">
-                              ${["draft", "active", "closed", "archived"].map((status) => `<option value="${status}" ${selected.status === status ? "selected" : ""}>${status[0].toUpperCase() + status.slice(1)}</option>`).join("")}
-                            </select>
-                          </div>
-
-                          <div class="modal-actions">
-                            <button class="btn" id="edit-event-cancel">Cancel</button>
-                            <button class="btn btn-primary" id="edit-event-save">Save Changes</button>
-                          </div>
-                        </div>
-                      </div>`;
-                  })()
-                : ""
-            }
-          `;
-
-          attachEventHomeHandlers();
-        }
-
-        function render() {
-          if (state.loading) {
-            root.innerHTML = '<div class="loading">Loading registrations…</div>';
-            return;
-          }
-
-          if (!state.selectedEventId || state.view === "events") {
-            renderEventsHome();
-            return;
-          }
-
-          renderDashboard();
-        }
-
-        function attachEventHomeHandlers() {
-          const createBtn = document.getElementById("create-event-btn");
-          const createCard = document.getElementById("create-event-card");
-
-          const openCreate = () => {
-            state.createEventOpen = true;
-            state.createEventError = "";
-            state.createEventDraft = { name: "", date: "", location: "", capacity: "170" };
-            render();
-          };
-
-          if (createBtn) createBtn.addEventListener("click", openCreate);
-          if (createCard) createCard.addEventListener("click", openCreate);
-
-          [
-            ["new-event-name", "name"],
-            ["new-event-date", "date"],
-            ["new-event-location", "location"],
-            ["new-event-capacity", "capacity"]
-          ].forEach(([id, key]) => {
-            const input = document.getElementById(id);
-            if (!input) return;
-            input.addEventListener("input", (e) => {
-              state.createEventDraft[key] = e.target.value;
-            });
-          });
-
-          document.querySelectorAll("[data-event-menu]").forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-              e.stopPropagation();
-              const id = btn.getAttribute("data-event-menu");
-              const menu = document.getElementById(`event-menu-${id}`);
-              document.querySelectorAll(".event-menu").forEach((m) => {
-                if (m !== menu) m.hidden = true;
-              });
-              if (menu) menu.hidden = !menu.hidden;
-            });
-          });
-
-          document.querySelectorAll("[data-event-action]").forEach((btn) => {
-            btn.addEventListener("click", async (e) => {
-              e.stopPropagation();
-              const id = btn.getAttribute("data-event-id");
-              const action = btn.getAttribute("data-event-action");
-              const event = state.events.find((item) => item._id === id);
-              if (!event) return;
-
-              if (action === "edit") {
-                state.eventActionOpen = true;
-                state.eventActionId = id;
-                state.eventActionMode = "edit";
-                render();
-                return;
-              }
-
-              if (action === "delete") {
-                const confirmed = confirm(
-                  `Delete “${event.name}” permanently?\n\nThis will also delete all attendee registrations linked to this event. This action cannot be undone.`
-                );
-                if (!confirmed) return;
-
-                try {
-                  const res = await apiFetch(`/staff/events/${id}`, {
-                    method: "DELETE"
-                  });
-                  const data = await res.json();
-                  if (!res.ok) {
-                    alert(data.error || "Could not delete the event.");
-                    return;
-                  }
-
-                  state.events = state.events.filter((item) => item._id !== id);
-                  if (state.selectedEventId === id) {
-                    state.selectedEventId = null;
-                    state.selectedEvent = null;
-                    state.view = "events";
-                    state.items = [];
-                    state.stats = {
-                      totalAttendees: 0,
-                      checkedInCount: 0,
-                      notCheckedInCount: 0
-                    };
-                  }
-                  render();
-                } catch (err) {
-                  console.error(err);
-                  alert("Network error — please try again.");
-                }
-                return;
-              }
-
-              const nextStatus = action === "close" ? "closed" : action === "archive" ? "archived" : "active";
-              const message = action === "archive"
-                ? `Archive “${event.name}”?`
-                : action === "close"
-                  ? `Close registration for “${event.name}”?`
-                  : `Reopen registration for “${event.name}”?`;
-              if (!confirm(message)) return;
-
-              try {
-                const res = await apiFetch(`/staff/events/${id}`, {
-                  method: "PATCH",
-                  body: JSON.stringify({ status: nextStatus })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                  alert(data.error || "Could not update the event.");
-                  return;
-                }
-                state.events = state.events.map((item) => item._id === id ? data : item);
-                if (state.selectedEventId === id) state.selectedEvent = data;
-                render();
-              } catch (err) {
-                console.error(err);
-                alert("Network error — please try again.");
-              }
-            });
-          });
-
-          document.querySelectorAll("[data-open-event]").forEach((btn) => {
-            btn.addEventListener("click", async () => {
-              const id = btn.getAttribute("data-open-event");
-              const event = state.events.find((item) => item._id === id);
-              if (!event) return;
-
-              state.selectedEventId = id;
-              state.selectedEvent = event;
-              state.view = "dashboard";
-              state.search = "";
-              state.filter = "all";
-              state.items = [];
-              state.stats = {
-                totalAttendees: 0,
-                checkedInCount: 0,
-                notCheckedInCount: 0
-              };
-              state.meta = {
-                ...state.meta,
-                name: event.name || "",
-                date: event.date || "",
-                capacity: event.capacity || CAPACITY_DEFAULT
-              };
-
-              await loadAttendees();
-              render();
-            });
-          });
-
-          const editOverlay = document.getElementById("edit-event-overlay");
-          const editCancel = document.getElementById("edit-event-cancel");
-          const editSave = document.getElementById("edit-event-save");
-
-          const closeEditModal = () => {
-            state.eventActionOpen = false;
-            state.eventActionId = null;
-            state.eventActionMode = null;
-            render();
-          };
-
-          if (editOverlay) editOverlay.addEventListener("click", (e) => {
-            if (e.target === editOverlay) closeEditModal();
-          });
-          if (editCancel) editCancel.addEventListener("click", closeEditModal);
-          if (editSave) editSave.addEventListener("click", async () => {
-            const id = state.eventActionId;
-            const name = document.getElementById("edit-event-name")?.value.trim() || "";
-            const date = document.getElementById("edit-event-date")?.value.trim() || "";
-            const location = document.getElementById("edit-event-location")?.value.trim() || "";
-            const capacity = parseInt(document.getElementById("edit-event-capacity")?.value, 10);
-            const status = document.getElementById("edit-event-status")?.value || "active";
-
-            if (!name) { alert("Event name is required."); return; }
-            if (!Number.isFinite(capacity) || capacity < 1) { alert("Capacity must be at least 1."); return; }
-
-            try {
-              editSave.disabled = true;
-              editSave.textContent = "Saving…";
-              const res = await apiFetch(`/staff/events/${id}`, {
-                method: "PATCH",
-                body: JSON.stringify({ name, date, location, capacity, status })
-              });
-              const data = await res.json();
-              if (!res.ok) {
-                alert(data.error || "Could not update the event.");
-                editSave.disabled = false;
-                editSave.textContent = "Save Changes";
-                return;
-              }
-              state.events = state.events.map((item) => item._id === id ? data : item);
-              if (state.selectedEventId === id) state.selectedEvent = data;
-              closeEditModal();
-            } catch (err) {
-              console.error(err);
-              alert("Network error — please try again.");
-              editSave.disabled = false;
-              editSave.textContent = "Save Changes";
-            }
-          });
-
-          const overlay = document.getElementById("create-event-overlay");
-          if (overlay) {
-            overlay.addEventListener("click", (e) => {
-              if (e.target === overlay) {
-                state.createEventOpen = false;
-                state.createEventError = "";
-                state.createEventDraft = { name: "", date: "", location: "", capacity: "170" };
-                render();
-              }
-            });
-          }
-
-          const cancel = document.getElementById("create-event-cancel");
-          if (cancel) {
-            cancel.addEventListener("click", () => {
-              state.createEventOpen = false;
-              state.createEventError = "";
-              render();
-            });
-          }
-
-          const submit = document.getElementById("create-event-submit");
-          if (submit) {
-            submit.addEventListener("click", async () => {
-              state.createEventDraft = {
-                name: document.getElementById("new-event-name")?.value || "",
-                date: document.getElementById("new-event-date")?.value || "",
-                location: document.getElementById("new-event-location")?.value || "",
-                capacity: document.getElementById("new-event-capacity")?.value || "170"
-              };
-              const name = state.createEventDraft.name.trim();
-              const date = state.createEventDraft.date.trim();
-              const location = state.createEventDraft.location.trim();
-              const capacity = parseInt(state.createEventDraft.capacity, 10);
-
-              if (!name) {
-                state.createEventError = "Event name is required.";
-                render();
-                return;
-              }
-
-              if (!Number.isFinite(capacity) || capacity < 1) {
-                state.createEventError = "Capacity must be at least 1.";
-                render();
-                return;
-              }
-
-              state.creatingEvent = true;
-              state.createEventError = "";
-              render();
-
-              try {
-                const res = await apiFetch("/staff/events", {
-                  method: "POST",
-                  body: JSON.stringify({
-                    name,
-                    date,
-                    location,
-                    capacity,
-                    status: "active"
-                  })
-                });
-
-                const data = await res.json();
-
-                if (!res.ok) {
-                  state.creatingEvent = false;
-                  state.createEventError = data.error || "Could not create event.";
-                  render();
-                  return;
-                }
-
-                state.events = [data, ...state.events];
-                state.selectedEventId = data._id;
-                state.selectedEvent = data;
-                state.view = "dashboard";
-                state.createEventOpen = false;
-                state.creatingEvent = false;
-                state.createEventDraft = { name: "", date: "", location: "", capacity: "170" };
-                state.meta = {
-                  ...state.meta,
-                  name: data.name || "",
-                  date: data.date || "",
-                  capacity: data.capacity || CAPACITY_DEFAULT
-                };
-                state.items = [];
-                state.stats = {
-                  totalAttendees: 0,
-                  checkedInCount: 0,
-                  notCheckedInCount: 0
-                };
-
-                await loadAttendees();
-                render();
-              } catch (e) {
-                console.error(e);
-                state.creatingEvent = false;
-                state.createEventError = "Network error — please try again.";
-                render();
-              }
-            });
-          }
-        }
-
         function attachHandlers() {
-          const backEventsBtn = document.getElementById("back-events-btn");
-          if (backEventsBtn) {
-            backEventsBtn.addEventListener("click", async () => {
-              state.view = "events";
-              state.selectedEventId = null;
-              state.selectedEvent = null;
-              state.items = [];
-              state.stats = {
-                totalAttendees: 0,
-                checkedInCount: 0,
-                notCheckedInCount: 0
-              };
-              await loadEvents();
-              render();
-            });
-          }
-
           const nameInput = document.getElementById("name-input");
           if (nameInput)
             nameInput.addEventListener("change", async (e) => {
-              const value = e.target.value.trim();
-              if (!state.selectedEventId || !value) return;
-
-              const res = await apiFetch(`/staff/events/${state.selectedEventId}`, {
-                method: "PATCH",
-                body: JSON.stringify({ name: value })
-              });
-
-              if (res.ok) {
-                const updated = await res.json();
-                state.selectedEvent = updated;
-                state.meta.name = updated.name || value;
-                state.events = state.events.map((event) =>
-                  event._id === updated._id ? updated : event
-                );
-              }
+              state.meta.name = e.target.value;
+              await saveMeta();
             });
 
           const dateInput = document.getElementById("date-input");
           if (dateInput)
             dateInput.addEventListener("change", async (e) => {
-              if (!state.selectedEventId) return;
-
-              const value = e.target.value.trim();
-
-              const res = await apiFetch(`/staff/events/${state.selectedEventId}`, {
-                method: "PATCH",
-                body: JSON.stringify({ date: value })
-              });
-
-              if (res.ok) {
-                const updated = await res.json();
-                state.selectedEvent = updated;
-                state.meta.date = updated.date || value;
-                state.events = state.events.map((event) =>
-                  event._id === updated._id ? updated : event
-                );
-              }
+              state.meta.date = e.target.value;
+              await saveMeta();
             });
 
           const capInput = document.getElementById("capacity-input");
           if (capInput)
             capInput.addEventListener("change", async (e) => {
               const val = parseInt(e.target.value, 10);
-              const capacity =
+              state.meta.capacity =
                 isNaN(val) || val <= 0 ? CAPACITY_DEFAULT : val;
-
-              if (!state.selectedEventId) return;
-
-              const res = await apiFetch(`/staff/events/${state.selectedEventId}`, {
-                method: "PATCH",
-                body: JSON.stringify({ capacity })
-              });
-
-              if (res.ok) {
-                const updated = await res.json();
-                state.selectedEvent = updated;
-                state.meta.capacity = updated.capacity || capacity;
-                state.events = state.events.map((event) =>
-                  event._id === updated._id ? updated : event
-                );
-                render();
-              }
+              await saveMeta();
+              render();
             });
 
           const refreshBtn = document.getElementById("refresh-btn");
@@ -4505,10 +3613,7 @@
                 try {
                   const res = await apiFetch(`/staff/attendees/${id}`, {
                     method: "PATCH",
-                    body: JSON.stringify({
-                    eventId: state.selectedEventId,
-                    checkedIn: false
-                  })
+                    body: JSON.stringify({ checkedIn: false }),
                   });
                   const data = await res.json();
                   if (!res.ok) {
@@ -4569,9 +3674,9 @@
               if (!confirm("Remove this attendee from the list?")) return;
 
               try {
-               fetch(`/api/staff/attendees/${id}?eventId=${eventId}`, {
-                method: 'DELETE'
-              });
+                const res = await apiFetch(`/staff/attendees/${id}`, {
+                  method: "DELETE",
+                });
                 const data = await res.json();
                 if (!res.ok) {
                   alert(data.error || "Could not remove this attendee.");
@@ -4840,7 +3945,6 @@
               }
 
               const payload = {
-                eventId: state.selectedEventId,
                 name,
                 phone,
                 email,
@@ -5031,10 +4135,7 @@
                 console.log("ROWS BEING SENT TO SERVER:", rows);
                 const res = await apiFetch("/staff/attendees/import", {
                   method: "POST",
-                  body: JSON.stringify({
-                  eventId: state.selectedEventId,
-                  rows
-                })
+                  body: JSON.stringify({ rows }),
                 });
                 
                 const summary = await res.json();
