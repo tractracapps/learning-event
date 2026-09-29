@@ -27,95 +27,34 @@
     min-height:100%;
     padding:24px;
   }
-  .card{
-    width:100%;
-    max-width:380px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-top:3px solid var(--accent);
-    border-radius:16px;
-    padding:32px;
-  }
-  .eyebrow{
-    font-size:11px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.1em;
-    color:var(--accent-dark);
-  }
-  h1{
-    font-size:20px;
-    margin:8px 0 4px 0;
-    color:var(--ink);
-  }
-  .sub{
-    font-size:13px;
-    color:var(--ink-soft);
-    margin:0 0 22px 0;
-    line-height:1.5;
-  }
-  label{
-    display:block;
-    font-size:12px;
-    font-weight:600;
-    color:var(--ink-soft);
-    margin-bottom:6px;
-  }
+  .logo{display:block;height:34px;width:auto;margin:0 0 18px 0;}
+  .card{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:16px;padding:32px;}
+  .eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-dark);}
+  h1{font-size:20px;margin:8px 0 4px 0;color:var(--ink);}
+  .sub{font-size:13px;color:var(--ink-soft);margin:0 0 22px 0;line-height:1.5;}
+  label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
   .pw-row{position:relative;}
-  input[type="password"], input[type="text"]{
-    width:100%;
-    padding:11px 40px 11px 14px;
-    border:1px solid var(--border);
-    border-radius:10px;
-    font-size:14px;
-    background:#FAF7F2;
-    color:var(--ink);
-  }
+  input[type="password"], input[type="text"]{width:100%;padding:11px 40px 11px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:#FAF7F2;color:var(--ink);}
   input:focus{outline:none;border-color:var(--accent);background:#fff;}
-  .toggle-btn{
-    position:absolute;
-    right:8px;
-    top:50%;
-    transform:translateY(-50%);
-    border:none;
-    background:none;
-    color:var(--ink-soft);
-    font-size:12px;
-    cursor:pointer;
-    padding:6px 8px;
-  }
-  .error{
-    margin-top:12px;
-    background:var(--bad-soft);
-    color:var(--bad);
-    border-radius:8px;
-    padding:10px 12px;
-    font-size:12.5px;
-    font-weight:600;
-  }
-  button.submit{
-    width:100%;
-    margin-top:18px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:var(--accent);
-    color:#fff;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-  }
+  .toggle-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:none;background:none;color:var(--ink-soft);font-size:12px;cursor:pointer;padding:6px 8px;}
+  .error{margin-top:12px;background:var(--bad-soft);color:var(--bad);border-radius:8px;padding:10px 12px;font-size:12.5px;font-weight:600;}
+  button.submit{width:100%;margin-top:18px;padding:12px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;}
   button.submit:hover{background:var(--accent-dark);}
   button.submit:disabled{opacity:.6;cursor:not-allowed;}
+  .admin-link{display:block;text-align:center;margin-top:18px;color:var(--ink-soft);font-size:12px;text-decoration:none;cursor:pointer;}
+  .admin-link:hover{color:var(--accent-dark);text-decoration:underline;}
+  .mode-note{margin:-8px 0 18px;color:var(--ink-soft);font-size:12px;line-height:1.45;}
 </style>
 </head>
 <body>
   <div class="card">
-    <div class="eyebrow">Staff Portal</div>
-    <h1>Sign in to check-in desk</h1>
-    <p class="sub">Only authorized event staff can access attendee records and check-in.</p>
+    <img class="logo" src="/tractrac-logo.png" alt="TracTrac" />
+    <div class="eyebrow" id="eyebrow">Staff Portal</div>
+    <h1 id="title">Sign in to check-in desk</h1>
+    <p class="sub" id="subtitle">Only authorized event staff can access attendee records and check-in.</p>
+
     <form id="login-form">
-      <label>Staff Password</label>
+      <label id="password-label">Staff Password</label>
       <div class="pw-row">
         <input type="password" id="password" placeholder="Enter password" required />
         <button type="button" class="toggle-btn" id="toggle-pw">Show</button>
@@ -123,48 +62,119 @@
       <div id="error-box"></div>
       <button type="submit" class="submit" id="submit-btn">Sign in</button>
     </form>
+
+    <a href="#" class="admin-link" id="admin-link">Admin login</a>
   </div>
 
-  <script>
-    const API_BASE = "/api";
-    const form = document.getElementById('login-form');
-    const pwInput = document.getElementById('password');
-    const toggleBtn = document.getElementById('toggle-pw');
-    const errorBox = document.getElementById('error-box');
-    const submitBtn = document.getElementById('submit-btn');
+<script>
+  const API_BASE = "/api";
+  const form = document.getElementById('login-form');
+  const pwInput = document.getElementById('password');
+  const toggleBtn = document.getElementById('toggle-pw');
+  const errorBox = document.getElementById('error-box');
+  const submitBtn = document.getElementById('submit-btn');
+  const adminLink = document.getElementById('admin-link');
+  const eyebrow = document.getElementById('eyebrow');
+  const title = document.getElementById('title');
+  const subtitle = document.getElementById('subtitle');
+  const passwordLabel = document.getElementById('password-label');
 
-    toggleBtn.addEventListener('click', () => {
-      const isPw = pwInput.type === 'password';
-      pwInput.type = isPw ? 'text' : 'password';
-      toggleBtn.textContent = isPw ? 'Hide' : 'Show';
-    });
+  let loginRole = 'staff';
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      errorBox.innerHTML = '';
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Signing in…';
-      try {
-        const res = await fetch(`${API_BASE}/staff/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password: pwInput.value })
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          errorBox.innerHTML = `<div class="error">${data.error || 'Login failed'}</div>`;
-          return;
-        }
-        localStorage.setItem('staff_token', data.token);
-        const params = new URLSearchParams(window.location.search);
-        window.location.href = params.get('next') || '/index.html';
-      } catch (err) {
-        errorBox.innerHTML = `<div class="error">Unable to connect to backend.</div>`;
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign in';
+  function setMode(role) {
+    loginRole = role;
+    errorBox.innerHTML = '';
+    pwInput.value = '';
+
+    if (role === 'admin') {
+      eyebrow.textContent = 'Admin Portal';
+      title.textContent = 'Admin sign in';
+      subtitle.textContent = 'Authorized administrators can create and manage events.';
+      passwordLabel.textContent = 'Admin Password';
+      adminLink.textContent = '← Registration staff login';
+    } else {
+      eyebrow.textContent = 'Staff Portal';
+      title.textContent = 'Sign in to check-in desk';
+      subtitle.textContent = 'Only authorized event staff can access attendee records and check-in.';
+      passwordLabel.textContent = 'Staff Password';
+      adminLink.textContent = 'Admin login';
+    }
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isPw = pwInput.type === 'password';
+    pwInput.type = isPw ? 'text' : 'password';
+    toggleBtn.textContent = isPw ? 'Hide' : 'Show';
+  });
+
+  adminLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    setMode(loginRole === 'staff' ? 'admin' : 'staff');
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.innerHTML = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing in…';
+
+    try {
+      const res = await fetch(`${API_BASE}/staff/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: pwInput.value,
+          role: loginRole
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        errorBox.innerHTML = `<div class="error">${data.error || 'Login failed'}</div>`;
+        return;
       }
-    });
-  </script>
+
+      localStorage.setItem('staff_token', data.token);
+      localStorage.setItem('staff_role', data.role || loginRole);
+
+      if ((data.role || loginRole) === 'admin') {
+        localStorage.removeItem('staff_active_event');
+        window.location.href = '/index.html?admin=1';
+        return;
+      }
+
+      // Registration Staff: immediately find the active event.
+      const eventsRes = await fetch(`${API_BASE}/staff/events`, {
+        headers: {
+          Authorization: `Bearer ${data.token}`
+        }
+      });
+
+      const events = await eventsRes.json();
+
+      if (!eventsRes.ok) {
+        throw new Error(events.error || 'Could not load events');
+      }
+
+      const activeEvent = events.find(event => event.status === 'active');
+
+      if (activeEvent) {
+        localStorage.setItem('staff_active_event', activeEvent._id);
+      } else {
+        localStorage.removeItem('staff_active_event');
+      }
+
+      // index.html will open the active event directly for staff.
+      window.location.href = '/index.html';
+
+    } catch (err) {
+      errorBox.innerHTML = `<div class="error">${err.message || 'Unable to connect to backend.'}</div>`;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Sign in';
+    }
+  });
+</script>
 </body>
 </html>

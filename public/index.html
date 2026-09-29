@@ -1620,6 +1620,7 @@
       (function () {
         const API_BASE = "/api";
         let token = localStorage.getItem("staff_token");
+        let role = localStorage.getItem("staff_role") || "staff";
         if (!token) {
           window.location.href =
             "/login.html?next=" + encodeURIComponent(window.location.pathname);
@@ -1627,6 +1628,10 @@
         }
 
         const CAPACITY_DEFAULT = 170;
+
+        // Registration Staff go directly to the active event.
+        // Admins land on the event management / create-event screen.
+        if (!["admin", "staff"].includes(role)) role = "staff";
 
         const NIGERIAN_STATES = [
           "FCT (Abuja)",
@@ -2630,6 +2635,7 @@
 /* END NIGERIAN BANK LIST */
         let state = {
           loading: true,
+          role,
           events: [],
           selectedEventId: null,
           selectedEvent: null,
@@ -2701,6 +2707,8 @@
           });
           if (res.status === 401) {
             localStorage.removeItem("staff_token");
+            localStorage.removeItem("staff_role");
+            localStorage.removeItem("staff_active_event");
             window.location.href = "/login.html";
             throw new Error("Unauthorized");
           }
@@ -2718,6 +2726,32 @@
     const events = await res.json();
 
     state.events = events || [];
+
+    // Registration Staff should never land on the event-management home.
+    // Always route them to the currently active event.
+    if (state.role === "staff") {
+      const activeEvent = state.events.find(
+        event => event.status === "active"
+      );
+
+      if (activeEvent) {
+        state.selectedEventId = activeEvent._id;
+        state.selectedEvent = activeEvent;
+        state.view = "dashboard";
+        state.meta = {
+          ...state.meta,
+          name: activeEvent.name || "",
+          date: activeEvent.date || "",
+          capacity: activeEvent.capacity || CAPACITY_DEFAULT
+        };
+      } else {
+        state.selectedEventId = null;
+        state.selectedEvent = null;
+        state.view = "staff-no-active";
+      }
+
+      return;
+    }
 
     if (!state.events.length) {
       state.selectedEventId = null;
@@ -2896,22 +2930,23 @@
           </div>
           <div class="header-top">
             <div>
-              <button class="btn" id="back-events-btn" style="margin-bottom:10px;">← All Events</button>
-              <input class="title-input" id="name-input" value="${esc(state.meta.name)}" placeholder="Event name" />
+              <div style="font-size:11px;font-weight:800;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">${state.role === "admin" ? "Admin Portal" : "Registration Staff"}</div>
+              ${state.role === "admin" ? `<button class="btn" id="back-events-btn" style="margin-bottom:10px;">← All Events</button>` : ""}
+              <input class="title-input" id="name-input" value="${esc(state.meta.name)}" placeholder="Event name" ${state.role === "admin" ? "" : "readonly"} />
               <br/>
-              <input class="date-input" id="date-input" value="${esc(state.meta.date)}" placeholder="" />
+              <input class="date-input" id="date-input" value="${esc(state.meta.date)}" placeholder="" ${state.role === "admin" ? "" : "readonly"} />
             </div>
             <div class="actions">
               <button class="btn" id="refresh-btn">↻ Refresh</button>
-              <button class="btn" id="export-btn">⇩ Export</button>
-              <button class="btn" id="import-btn" ${atCapacity ? "disabled" : ""}>⇧ Import List</button>
+              ${state.role === "admin" ? `<button class="btn" id="export-btn">⇩ Export</button>
+              <button class="btn" id="import-btn" ${atCapacity ? "disabled" : ""}>⇧ Import List</button>` : ""}
               <button class="btn btn-primary" id="add-btn" ${atCapacity ? "disabled" : ""}>+ Add Attendee</button>
               <button class="btn" id="signout-btn">Sign out</button>
             </div>
           </div>
           <div class="capacity-row">
             <div class="capacity-label">
-              <span>${total} of <input id="capacity-input" value="${esc(capacity)}" style="width:44px;border:none;background:transparent;font-weight:700;color:var(--ink);" /> seats filled</span>
+              <span>${total} of <input id="capacity-input" value="${esc(capacity)}" ${state.role === "admin" ? "" : "readonly"} style="width:44px;border:none;background:transparent;font-weight:700;color:var(--ink);" /> seats filled</span>
               <span>${pct}%</span>
             </div>
             <div class="capacity-track"><div class="capacity-fill ${atCapacity ? "full" : ""}" style="width:${pct}%"></div></div>
@@ -3042,12 +3077,12 @@
         Edit
       </button>
 
-      <button
+      ${state.role === "admin" ? `<button
         class="row-btn delete"
         data-delete="${a.id}"
       >
         Delete
-      </button>
+      </button>` : ""}
 
     </div>
 
@@ -3852,6 +3887,35 @@
         function renderEventsHome() {
           const events = state.events || [];
 
+          if (state.role === "staff") {
+            const activeEvent = events.find(event => event.status === "active");
+            root.innerHTML = `
+              <div class="header">
+                <div class="event-brand">
+                  <img src="assets/tt-logo.png" alt="TracTrac Logo" class="event-logo">
+                </div>
+                <div class="events-home" style="text-align:center;">
+                  <div class="events-eyebrow">Registration Staff</div>
+                  <h1>${activeEvent ? "Opening active event…" : "No active event"}</h1>
+                  <p class="events-subtitle">${activeEvent ? "Please wait while the check-in page opens." : "There is currently no active event available for registration."}</p>
+                  <div style="margin-top:20px;">
+                    <button class="btn" id="refresh-btn">↻ Refresh</button>
+                    <button class="btn" id="signout-btn">Sign out</button>
+                  </div>
+                </div>
+              </div>`;
+            const refresh = document.getElementById("refresh-btn");
+            if (refresh) refresh.addEventListener("click", refreshAll);
+            const signout = document.getElementById("signout-btn");
+            if (signout) signout.addEventListener("click", () => {
+              localStorage.removeItem("staff_token");
+              localStorage.removeItem("staff_role");
+              localStorage.removeItem("staff_active_event");
+              window.location.href = "/login.html";
+            });
+            return;
+          }
+
           root.innerHTML = `
             <div class="header">
               <div class="event-brand">
@@ -4038,10 +4102,13 @@
         }
 
         function attachEventHomeHandlers() {
+          if (state.role !== "admin") return;
+
           const createBtn = document.getElementById("create-event-btn");
           const createCard = document.getElementById("create-event-card");
 
           const openCreate = () => {
+            if (state.role !== "admin") return;
             state.createEventOpen = true;
             state.createEventError = "";
             state.createEventDraft = { name: "", date: "", location: "", capacity: "170" };
@@ -4439,6 +4506,8 @@
           if (signoutBtn)
             signoutBtn.addEventListener("click", () => {
               localStorage.removeItem("staff_token");
+              localStorage.removeItem("staff_role");
+              localStorage.removeItem("staff_active_event");
               window.location.href = "/login.html";
             });
 
@@ -5080,6 +5149,11 @@
           if (state.signAttendeeId) setupSignaturePad();
         }
         (async function init() {
+          // Admins start on the Create Event screen.
+          if (state.role === "admin") {
+            state.createEventOpen = true;
+          }
+
           await refreshAll();
           state.loading = false;
           render();
