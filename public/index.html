@@ -2930,7 +2930,7 @@
           </div>
           <div class="header-top">
             <div>
-              <div style="font-size:11px;font-weight:800;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">${state.role === "admin" ? "Admin Portal" : "Registration Staff"}</div>
+              <div style="font-size:11px;font-weight:800;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">${state.role === "admin" ? "Admin Portal" : ""}</div>
               ${state.role === "admin" ? `<button class="btn" id="back-events-btn" style="margin-bottom:10px;">← All Events</button>` : ""}
               <input class="title-input" id="name-input" value="${esc(state.meta.name)}" placeholder="Event name" ${state.role === "admin" ? "" : "readonly"} />
               <br/>
@@ -3895,7 +3895,6 @@
                   <img src="assets/tt-logo.png" alt="TracTrac Logo" class="event-logo">
                 </div>
                 <div class="events-home" style="text-align:center;">
-                  <div class="events-eyebrow">Registration Staff</div>
                   <h1>${activeEvent ? "Opening active event…" : "No active event"}</h1>
                   <p class="events-subtitle">${activeEvent ? "Please wait while the check-in page opens." : "There is currently no active event available for registration."}</p>
                   <div style="margin-top:20px;">
