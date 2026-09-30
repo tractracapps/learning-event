@@ -109,7 +109,6 @@ async function getMeta() {
   return meta;
 }
 
-
 async function updateMeta(values) {
   return EventMeta.findOneAndUpdate(
     {},
@@ -301,7 +300,6 @@ app.post('/api/staff/login', (req, res) => {
       ? ADMIN_PASSWORD
       : STAFF_PASSWORD;
 
-
   // Admin password must be configured
   if (
     requestedRole === 'admin' &&
@@ -313,13 +311,11 @@ app.post('/api/staff/login', (req, res) => {
     });
   }
 
-
   if (password !== expectedPassword) {
     return res.status(401).json({
       error: 'Incorrect password'
     });
   }
-
 
   const token = jwt.sign(
     {
@@ -330,7 +326,6 @@ app.post('/api/staff/login', (req, res) => {
       expiresIn: '12h'
     }
   );
-
 
   res.json({
     token,
@@ -441,7 +436,6 @@ app.post(
         status
       } = req.body || {};
 
-
       if (
         !name ||
         !String(name).trim()
@@ -451,10 +445,8 @@ app.post(
         });
       }
 
-
       const parsedCapacity =
         parseInt(capacity, 10);
-
 
       if (
         Number.isNaN(parsedCapacity) ||
@@ -466,7 +458,6 @@ app.post(
         });
       }
 
-
       const allowedStatuses = [
         'draft',
         'active',
@@ -474,10 +465,8 @@ app.post(
         'archived'
       ];
 
-
       const eventStatus =
         status || 'draft';
-
 
       if (
         !allowedStatuses.includes(
@@ -488,7 +477,6 @@ app.post(
           error: 'Invalid event status.'
         });
       }
-
 
       const event =
         await Event.create({
@@ -507,7 +495,6 @@ app.post(
           status:
             eventStatus
         });
-
 
       res.status(201).json(event);
 
@@ -544,9 +531,7 @@ app.patch(
         status
       } = req.body || {};
 
-
       const updates = {};
-
 
       if (name !== undefined) {
         if (!String(name).trim()) {
@@ -560,17 +545,14 @@ app.patch(
           String(name).trim();
       }
 
-
       if (date !== undefined) {
         updates.date = date;
       }
-
 
       if (location !== undefined) {
         updates.location =
           location;
       }
-
 
       if (capacity !== undefined) {
         const parsedCapacity =
@@ -591,7 +573,6 @@ app.patch(
         updates.capacity =
           parsedCapacity;
       }
-
 
       if (status !== undefined) {
         const allowedStatuses = [
@@ -616,7 +597,6 @@ app.patch(
           status;
       }
 
-
       const event =
         await Event.findByIdAndUpdate(
           req.params.id,
@@ -629,14 +609,12 @@ app.patch(
           }
         ).lean();
 
-
       if (!event) {
         return res.status(404).json({
           error:
             'Event not found.'
         });
       }
-
 
       res.json(event);
 
@@ -680,14 +658,12 @@ app.delete(
           req.params.id
         );
 
-
       if (!event) {
         return res.status(404).json({
           error:
             'Event not found.'
         });
       }
-
 
       // Delete only attendees
       // belonging to this event
@@ -696,11 +672,9 @@ app.delete(
           eventId: event._id
         });
 
-
       await Event.findByIdAndDelete(
         event._id
       );
-
 
       res.json({
         ok: true,
@@ -780,19 +754,15 @@ app.put(
         capacity
       } = req.body || {};
 
-
       const updates = {};
-
 
       if (name !== undefined) {
         updates.name = name;
       }
 
-
       if (date !== undefined) {
         updates.date = date;
       }
-
 
       if (capacity !== undefined) {
         const cap =
@@ -808,11 +778,9 @@ app.put(
             : cap;
       }
 
-
       await updateMeta(
         updates
       );
-
 
       res.json(
         await getMeta()
@@ -846,7 +814,6 @@ app.get(
         bankCode
       } = req.query;
 
-
       if (
         !accountNumber ||
         !bankCode
@@ -857,7 +824,6 @@ app.get(
         });
       }
 
-
       const cleanAccountNumber =
         String(
           accountNumber
@@ -865,7 +831,6 @@ app.get(
           /\D/g,
           ''
         );
-
 
       if (
         cleanAccountNumber.length !==
@@ -876,7 +841,6 @@ app.get(
             'Account number must be 10 digits'
         });
       }
-
 
       if (!PAYSTACK_SECRET_KEY) {
         console.error(
@@ -889,7 +853,6 @@ app.get(
         });
       }
 
-
       const paystackUrl =
         `https://api.paystack.co/bank/resolve` +
         `?account_number=${encodeURIComponent(
@@ -898,7 +861,6 @@ app.get(
         `&bank_code=${encodeURIComponent(
           bankCode
         )}`;
-
 
       const response =
         await fetch(
@@ -916,10 +878,8 @@ app.get(
           }
         );
 
-
       const data =
         await response.json();
-
 
       if (
         !response.ok ||
@@ -942,7 +902,6 @@ app.get(
             'Could not verify this account number'
         });
       }
-
 
       return res.json({
         accountNumber:
@@ -984,7 +943,6 @@ app.get(
         checkedIn
       } = req.query;
 
-
       if (!eventId) {
         return res.status(400).json({
           error:
@@ -992,12 +950,10 @@ app.get(
         });
       }
 
-
       const event =
         await Event.findById(
           eventId
         ).lean();
-
 
       if (!event) {
         return res.status(404).json({
@@ -1006,11 +962,9 @@ app.get(
         });
       }
 
-
       const filter = {
         eventId
       };
-
 
       if (
         checkedIn === 'true'
@@ -1018,17 +972,14 @@ app.get(
         filter.checkedIn = true;
       }
 
-
       if (
         checkedIn === 'false'
       ) {
         filter.checkedIn = false;
       }
 
-
       const q =
         String(search).trim();
-
 
       if (q) {
         const regex =
@@ -1036,7 +987,6 @@ app.get(
             escapeRegex(q),
             'i'
           );
-
 
         filter.$or = [
           {
@@ -1054,7 +1004,6 @@ app.get(
         ];
       }
 
-
       const [
         rows,
         stats
@@ -1071,7 +1020,6 @@ app.get(
         )
       ]);
 
-
       const items =
         rows.map(row => {
           const {
@@ -1079,7 +1027,6 @@ app.get(
             signatureData,
             ...rest
           } = row;
-
 
           return {
             ...rest,
@@ -1094,7 +1041,6 @@ app.get(
               !!signatureData
           };
         });
-
 
       res.json({
         items,
@@ -1159,7 +1105,6 @@ app.post(
         accountName
       } = req.body;
 
-
       if (!eventId) {
         return res.status(400).json({
           error:
@@ -1167,7 +1112,8 @@ app.post(
         });
       }
 
-
+      // Manual registration still requires
+      // both name and phone.
       if (
         !name ||
         !phone
@@ -1178,12 +1124,10 @@ app.post(
         });
       }
 
-
       const event =
         await Event.findById(
           eventId
         ).lean();
-
 
       if (!event) {
         return res.status(404).json({
@@ -1191,7 +1135,6 @@ app.post(
             'Event not found'
         });
       }
-
 
       if (
         event.status === 'closed' ||
@@ -1203,12 +1146,10 @@ app.post(
         });
       }
 
-
       const total =
         await Attendee.countDocuments({
           eventId
         });
-
 
       if (
         total >= event.capacity
@@ -1219,12 +1160,10 @@ app.post(
         });
       }
 
-
       const normalizedPhone =
         normalizePhone(
           phone
         );
-
 
       const attendees =
         await Attendee.find(
@@ -1236,7 +1175,6 @@ app.post(
           }
         ).lean();
 
-
       const duplicate =
         attendees.some(
           attendee =>
@@ -1245,14 +1183,12 @@ app.post(
             ) === normalizedPhone
         );
 
-
       if (duplicate) {
         return res.status(409).json({
           error:
             'An attendee with this phone number already exists for this event'
         });
       }
-
 
       const attendee =
         await Attendee.create({
@@ -1316,7 +1252,6 @@ app.post(
             new Date()
         });
 
-
       res.status(201).json({
         id:
           attendee._id,
@@ -1363,14 +1298,12 @@ app.patch(
         eventId
       } = req.body || {};
 
-
       if (!eventId) {
         return res.status(400).json({
           error:
             'eventId is required'
         });
       }
-
 
       const attendee =
         await Attendee.findOne({
@@ -1380,14 +1313,12 @@ app.patch(
           eventId
         });
 
-
       if (!attendee) {
         return res.status(404).json({
           error:
             'Attendee not found for this event'
         });
       }
-
 
       const {
         name,
@@ -1408,7 +1339,6 @@ app.patch(
         checkedIn,
         signatureData
       } = req.body;
-
 
       if (name !== undefined)
         attendee.name = name;
@@ -1468,11 +1398,9 @@ app.patch(
         attendee.accountName =
           accountName;
 
-
       const isCheckingInNow =
         checkedIn === true &&
         attendee.checkedIn !== true;
-
 
       if (
         isCheckingInNow &&
@@ -1484,14 +1412,12 @@ app.patch(
         });
       }
 
-
       if (
         signatureData !== undefined
       ) {
         attendee.signatureData =
           signatureData;
       }
-
 
       if (
         checkedIn !== undefined
@@ -1510,7 +1436,6 @@ app.patch(
             null;
         }
 
-
         if (
           checkedIn === false &&
           attendee.checkedIn === true
@@ -1523,9 +1448,7 @@ app.patch(
         }
       }
 
-
       await attendee.save();
-
 
       res.json({
         id:
@@ -1573,14 +1496,12 @@ app.delete(
         eventId
       } = req.body || {};
 
-
       if (!eventId) {
         return res.status(400).json({
           error:
             'eventId is required'
         });
       }
-
 
       const deleted =
         await Attendee.findOneAndDelete({
@@ -1590,14 +1511,12 @@ app.delete(
           eventId
         });
 
-
       if (!deleted) {
         return res.status(404).json({
           error:
             'Attendee not found for this event.'
         });
       }
-
 
       res.json({
         ok: true
@@ -1643,14 +1562,12 @@ app.post(
         ids
       } = req.body || {};
 
-
       if (!eventId) {
         return res.status(400).json({
           error:
             'eventId is required'
         });
       }
-
 
       if (
         !Array.isArray(ids) ||
@@ -1661,7 +1578,6 @@ app.post(
         });
       }
 
-
       const result =
         await Attendee.deleteMany({
           _id: {
@@ -1670,7 +1586,6 @@ app.post(
 
           eventId
         });
-
 
       res.json({
         deleted:
@@ -1708,14 +1623,12 @@ app.post(
         rows
       } = req.body || {};
 
-
       if (!eventId) {
         return res.status(400).json({
           error:
             'eventId is required'
         });
       }
-
 
       if (!Array.isArray(rows)) {
         return res.status(400).json({
@@ -1724,12 +1637,10 @@ app.post(
         });
       }
 
-
       const event =
         await Event.findById(
           eventId
         ).lean();
-
 
       if (!event) {
         return res.status(404).json({
@@ -1737,7 +1648,6 @@ app.post(
             'Event not found'
         });
       }
-
 
       if (
         event.status === 'closed' ||
@@ -1749,7 +1659,8 @@ app.post(
         });
       }
 
-
+      // Get existing attendees for
+      // THIS event only.
       const existingAttendees =
         await Attendee.find(
           {
@@ -1759,7 +1670,6 @@ app.post(
             phone: 1
           }
         ).lean();
-
 
       const existingPhones =
         new Set(
@@ -1771,46 +1681,45 @@ app.post(
           )
         );
 
-
       const importPhones =
         new Set();
 
-
       const documents = [];
-
 
       let duplicates = 0;
       let invalid = 0;
-
 
       for (
         const row of rows
       ) {
 
+        // NAME IS THE ONLY REQUIRED
+        // FIELD FOR BULK IMPORT.
         const name =
           String(
             row.name || ''
           ).trim();
-
 
         const phone =
           String(
             row.phone || ''
           ).trim();
 
-
         if (!name) {
           invalid++;
           continue;
         }
-
 
         const normalizedPhone =
           normalizePhone(
             phone
           );
 
-
+        // Only check for duplicate
+        // phones when a phone exists.
+        //
+        // This means blank phones are
+        // NOT treated as duplicates.
         if (
           normalizedPhone &&
           (
@@ -1826,18 +1735,17 @@ app.post(
           continue;
         }
 
-
         if (normalizedPhone) {
           importPhones.add(
             normalizedPhone
           );
         }
 
-
         documents.push({
           eventId,
 
           name,
+
           phone,
 
           email:
@@ -1896,12 +1804,10 @@ app.post(
         });
       }
 
-
       const currentTotal =
         await Attendee.countDocuments({
           eventId
         });
-
 
       const availableSlots =
         Math.max(
@@ -1910,13 +1816,11 @@ app.post(
             currentTotal
         );
 
-
       const allowedDocuments =
         documents.slice(
           0,
           availableSlots
         );
-
 
       const overCapacity =
         Math.max(
@@ -1925,9 +1829,7 @@ app.post(
             allowedDocuments.length
         );
 
-
       let added = 0;
-
 
       if (
         allowedDocuments.length > 0
@@ -1940,7 +1842,6 @@ app.post(
         added =
           inserted.length;
       }
-
 
       res.json({
         added,
@@ -1986,7 +1887,6 @@ app.use(
   )
 );
 
-
 app.get(
   '*',
   (req, res) => {
@@ -2016,11 +1916,9 @@ mongoose
       'Connected to MongoDB'
     );
 
-
     try {
 
       await migrateToMultiEvent();
-
 
       app.listen(
         PORT,
@@ -2030,7 +1928,6 @@ mongoose
           );
         }
       );
-
 
     } catch (error) {
 
