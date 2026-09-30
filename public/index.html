@@ -4632,29 +4632,37 @@
           });
 
           // Delete attendee.
-          document.querySelectorAll("[data-delete]").forEach((btn) => {
-            btn.addEventListener("click", async () => {
-              const id = btn.getAttribute("data-delete");
-              if (!confirm("Remove this attendee from the list?")) return;
+          // Delete attendee.
+document.querySelectorAll("[data-delete]").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const id = btn.getAttribute("data-delete");
 
-              try {
-               fetch(`/api/staff/attendees/${id}?eventId=${eventId}`, {
-                method: 'DELETE'
-              });
-                const data = await res.json();
-                if (!res.ok) {
-                  alert(data.error || "Could not remove this attendee.");
-                  return;
-                }
-                await loadAttendees();
-                render();
-              } catch (e) {
-                console.error(e);
-                alert("Network error — please try again.");
-              }
-            });
-          });
+    if (!confirm("Remove this attendee from the list?")) return;
 
+    try {
+      const res = await apiFetch(`/staff/attendees/${id}`, {
+        method: "DELETE",
+        body: JSON.stringify({
+          eventId: state.selectedEventId
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Could not remove this attendee.");
+        return;
+      }
+
+      await loadAttendees();
+      render();
+
+    } catch (e) {
+      console.error(e);
+      alert("Network error — please try again.");
+    }
+  });
+});
           // Close edit/add modal by clicking the backdrop or Cancel.
           const overlay = document.getElementById("modal-overlay");
           if (overlay)
